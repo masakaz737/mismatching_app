@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'questionnaires/new'
+
+  get 'questionnaires/edit'
+
   root 'static_pages#index'
 
   devise_for :users

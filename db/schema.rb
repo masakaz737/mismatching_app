@@ -10,10 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180820045759) do
+ActiveRecord::Schema.define(version: 20180820051344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "questionnaires", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "sex"
+    t.date "birthday"
+    t.integer "birthplace"
+    t.integer "education"
+    t.integer "job"
+    t.integer "question1"
+    t.integer "question2"
+    t.integer "question3"
+    t.integer "question4"
+    t.integer "question5"
+    t.integer "question6"
+    t.integer "question7"
+    t.integer "question8"
+    t.integer "question9"
+    t.integer "question10"
+    t.integer "question11"
+    t.integer "question12"
+    t.integer "question13"
+    t.integer "question14"
+    t.integer "question15"
+    t.integer "question16"
+    t.integer "question17"
+    t.integer "question18"
+    t.integer "question19"
+    t.integer "question20"
+    t.integer "question21"
+    t.integer "question22"
+    t.integer "question23"
+    t.integer "question24"
+    t.integer "question25"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_questionnaires_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name", default: "", null: false
@@ -28,4 +65,5 @@ ActiveRecord::Schema.define(version: 20180820045759) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "questionnaires", "users"
 end

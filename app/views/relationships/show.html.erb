@@ -1,0 +1,207 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Relation sender:</strong>
+  <%= @relationship.follower_id %>
+</p>
+
+<p>
+  <strong>Relation recipient:</strong>
+  <%= @relationship.followed_id %>
+</p>
+
+<p>
+  <strong>total_score:</strong>
+  <%= @relationship.total_score %>
+</p>
+
+<p>
+  <strong>score1:</strong>
+  <%= @relationship.positive %>
+</p>
+
+<p>
+  <strong>score2:</strong>
+  <%= @relationship.faithful %>
+</p>
+
+<p>
+  <strong>score3:</strong>
+  <%= @relationship.cooperative %>
+</p>
+
+<p>
+  <strong>score4:</strong>
+  <%= @relationship.mental %>
+</p>
+
+<p>
+  <strong>score5:</strong>
+  <%= @relationship.curious %>
+</p>
+
+<p>
+  <strong>score6:</strong>
+  <%= @relationship.background %>
+</p>
+
+<!-- チャート描画キャンバス -->
+<div><canvas id="myChart"></canvas></div>
+
+<!-- 各ボタン -->
+<div style="text-align:center">
+	<button id="randomizeData">ランダムデータ</button>
+	<button id="addDataset">データセットの追加</button>
+	<button id="removeDataset">データセットの削除</button>
+	<button id="addData">データの追加</button>
+	<button id="removeData">データの削除</button>
+</div>
+
+<script>
+
+// 色の設定
+var colorSet = {
+	red: 'rgb(255, 99, 132)',
+	orange: 'rgb(255, 159, 64)',
+	yellow: 'rgb(255, 205, 86)',
+	green: 'rgb(75, 192, 192)',
+	blue: 'rgb(54, 162, 235)',
+	purple: 'rgb(153, 102, 255)',
+	grey: 'rgb(201, 203, 207)'
+};
+
+// 乱数生成(0～100)
+var rnd100 = function(){
+	return Math.round(Math.random() * 100);
+};
+
+// 色のRGB変換
+var color = Chart.helpers.color;
+
+/*
+ * チャートの初期設定
+ */
+var config = {
+	type: 'radar',
+	data: {
+		labels: ["外向性", "誠実性", "協調性", "精神的安定性", "開放性", "生い立ち/環境"],
+		datasets: [{
+			label: "運動量",
+			backgroundColor: color(colorSet.red).alpha(0.5).rgbString(),
+			borderColor: colorSet.red,
+			pointBackgroundColor: colorSet.red,
+			data: [<%= @relationship.positive %>, <%= @relationship.faithful %>, <%= @relationship.cooperative %>, <%= @relationship.mental %>, <%= @relationship.curious %>, <%= @relationship.background %>]
+		},]
+	},
+	options: {
+		animation:false,
+		showTooltips: false,
+		legend: { position: 'bottom' },
+		title: {
+			display: true,
+			fontSize:20,
+			fontColor:'#666',
+			text: '一週間チャート'
+		},
+		scale: {
+			display: true,
+			pointLabels: {
+				fontSize: 15,
+				fontColor: colorSet.yellow
+			},
+			ticks: {
+				display: true,
+				fontSize: 12,
+				fontColor: colorSet.green,
+				min: 0,
+				max: 100,
+				beginAtZero: true
+			},
+			gridLines: {
+				display: true,
+				color: colorSet.yellow
+			}
+		}
+	}
+};
+
+/*
+ * チャートの作成
+ */
+var myRadar = new Chart($("#myChart"), config);
+
+/*
+ * ランダムデータ（#randomizeData）
+ */
+$("#randomizeData").click(function(){
+	config.data.datasets.forEach(function(dataset){
+		dataset.data = dataset.data.map(function(){
+			return rnd100();
+		});
+	});
+
+	myRadar.update();
+});
+
+var colorNames = Object.keys(colorSet);
+
+/*
+ * データセットの追加（#addDataset）
+ */
+$("#addDataset").click(function(){
+	var colorName = colorNames[config.data.datasets.length % colorNames.length];;
+	var newColor = colorSet[colorName];
+
+	var newDataset = {
+		label: 'Dataset ' + config.data.datasets.length,
+		borderColor: newColor,
+		backgroundColor: color(newColor).alpha(0.2).rgbString(),
+		pointBorderColor: newColor,
+		data: [],
+	};
+
+	for (var index=0; index < config.data.labels.length; ++index) {
+		newDataset.data.push(rnd100());
+	}
+
+	config.data.datasets.push(newDataset);
+	myRadar.update();
+});
+
+/*
+ * データの追加（#addData）
+ */
+$("#addData").click(function(){
+	if (config.data.datasets.length > 0){
+		config.data.labels.push('dataset #' + config.data.labels.length);
+
+		config.data.datasets.forEach(function(dataset){
+			dataset.data.push(rnd100());
+		});
+
+		myRadar.update();
+	}
+});
+
+/*
+ * データセットの削除（#removeDataset）
+ */
+$("#removeDataset").click(function(){
+	config.data.datasets.splice(0, 1);
+	myRadar.update();
+});
+
+/*
+ * データの削除（#removeData）
+ */
+$("#removeData").click(function(){
+	config.data.labels.pop(); // remove the label first
+
+	config.data.datasets.forEach(function(dataset){
+		dataset.data.pop();
+	});
+
+	myRadar.update();
+});
+
+</script>

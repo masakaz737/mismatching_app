@@ -3,6 +3,9 @@
 <% if @questionnaire.empty? %>
   <%= link_to "質問に答える", new_user_questionnaire_path(@user.id) %>
 <% else %>
+  <%= form_with(model: current_user.active_relationships.new, local: true) do |f| %>
+    <%= f.submit "マッチング" %>
+  <% end %>
   <%= link_to "回答を修正する", edit_user_questionnaire_path(@user.id, @user.questionnaire.id) %>
 <% end %>
 

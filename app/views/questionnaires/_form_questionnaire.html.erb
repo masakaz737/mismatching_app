@@ -1,12 +1,12 @@
 <%= form_with(model: [@user, @questionnaire], local: true) do |form| %>
 
 <div class="field">
-  <%= form.label :性別 %><br>
+  <%= form.label :性別 %>
   <%= form.radio_button :sex, "1" %> 男
   <%= form.radio_button :sex, "2" %> 女
 </div>
 <div class="field">
-  <%= form.label :生年月日 %><br>
+  <%= form.label :生年月日 %>
   <%= raw sprintf(
               form.date_select(
                   :birthday,
@@ -18,11 +18,11 @@
                   '年 ', '月 ') + '日' %>
 </div>
 <div class="field">
-  <%= form.label :出身地 %><br>
+  <%= form.label :出身地 %>
   <%= form.select :birthplace, Questionnaire.birthplaces.keys, {prompt: '選択してください'}, class: 'form-control btn btn-info' %>
 </div>
 <div class="field">
-  <%= form.label :学歴 %><br>
+  <%= form.label :学歴 %>
   <%= form.radio_button :education, "1" %> 高卒
   <%= form.radio_button :education, "2" %> 短大、専門卒
   <%= form.radio_button :education, "3" %> 大卒
@@ -30,7 +30,7 @@
   <%= form.radio_button :education, "5" %> その他
 </div>
 <div class="field">
-  <%= form.label :職業 %><br>
+  <%= form.label :職業 %>
   <%= form.radio_button :job, "1" %> 無職
   <%= form.radio_button :job, "2" %> 学生
   <%= form.radio_button :job, "3" %> 会社員

@@ -16,7 +16,7 @@ class User < ApplicationRecord
 
   #指定のユーザをフォローする
   def follow!(other_user)
-    active_relationships.create!(followed_id: other_user.id)
+    active_relationships.new(followed_id: other_user.id)
   end
 
   #フォローしているかどうかを確認する

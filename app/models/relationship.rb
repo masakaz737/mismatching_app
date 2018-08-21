@@ -4,4 +4,10 @@ class Relationship < ApplicationRecord
 
   validates :follower_id, presence: true
   validates :followed_id, presence: true
+
+  validates_uniqueness_of :follower_id, scope: :followed_id
+
+  scope :between, -> (follower_id,followed_id) do
+    where("(relationships.follower_id = ? AND relationships.followed_id =?) OR (relationships.follower_id = ? AND  relationships.followed_id =?)", follower_id,followed_id, followed_id, follower_id)
+  end
 end

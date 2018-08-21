@@ -1,6 +1,6 @@
 <h1>ユーザー情報</h1>
 
-<% if @questionnaire.empty? %>
+<% if @questionnaire.blank? %>
   <%= link_to "質問に答える", new_user_questionnaire_path(@user.id) %>
 <% else %>
   <%= form_with(model: current_user.active_relationships.new, local: true) do |f| %>
@@ -12,7 +12,7 @@
 <p>名前：<%= @user.name %></p>
 <p>メールアドレス：<%= @user.email %></p>
 
-<% unless @questionnaire.empty? %>
+<% unless @questionnaire.blank? %>
   <h3><%= @user.name %>さんの回答 </h3>
   <p>性別：<%= @user.questionnaire.sex %></p>
   <p>生年月日：<%= @user.questionnaire.birthday %></p>

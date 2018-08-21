@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   resources :users do
     resources :questionnaires
   end
+
+  resources :conversations do
+    resources :messages
+  end
+
   resources :relationships
 
   if Rails.env.development?

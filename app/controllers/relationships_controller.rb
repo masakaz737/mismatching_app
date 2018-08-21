@@ -2,21 +2,26 @@ class RelationshipsController < ApplicationController
   before_action :set_relationship, only: [:show, :edit, :update, :destroy]
 
   def show
+    @matching_user = User.find(@relationship.followed_id)
   end
-  
+
   def new
     @relationship = Relationship.new
   end
 
   def create
-    if authenticate_user!
+    if user_signed_in?
       find_matching_user
       relationship = current_user.follow!(@matching_user)
-      relationship.update(total_score: @total_score, positive: @positive_score,
-                          faithful: @faithful_score, cooperative: @cooperative_score,
-                          mental: @mental_score, curious: @curious_score,
-                          background: @background_score)
-      redirect_to relationship_path(relationship.id)
+      if relationship.save
+        relationship.update(total_score: @total_score, positive: @positive_score,
+                            faithful: @faithful_score, cooperative: @cooperative_score,
+                            mental: @mental_score, curious: @curious_score,
+                            background: @background_score)
+        redirect_to relationship_path(relationship.id)
+      else
+        redirect_to relationship_path(Relationship.find_by(follower_id: current_user.id, followed_id: @matching_user.id).id), notice: 'relationship was already existed.'
+      end
     else
       @user
     end
@@ -62,7 +67,7 @@ class RelationshipsController < ApplicationController
       job_points = []
 
       @questionnaires.each do |questionnaire|
-        sex_points.push(((current_user.questionnaire.sex - questionnaire.sex) * 50).abs)
+        sex_points.push(((current_user.questionnaire.sex - questionnaire.sex) * 40).abs)
         birthday_points.push(((current_user.questionnaire.age - questionnaire.age) * 1).abs)
         birthplace_points.push(((current_user.questionnaire.birthplace_before_type_cast - questionnaire.birthplace_before_type_cast) * 1).abs)
         education_points.push(((current_user.questionnaire.education - questionnaire.education) * 10).abs)
@@ -141,13 +146,16 @@ class RelationshipsController < ApplicationController
       total_points = [@positive_points, @faithful_points, @cooperative_points, @mental_points, @curious_points, @background_points].transpose.map{|n| n.inject(:+)}
       maximum = total_points.index(total_points.max)
 
+      max_gap = (5 - 1) * 5 * 10 #(回答5 - 回答1) * 要素毎の設問数 * weight
+      max_gap_background = (2 - 1) * 40 + (65 - 18) + (50 - 1) + (5 - 1) * 10 * 2
+
       @matching_user = User.find(@questionnaires[maximum].user_id)
-      @total_score = total_points.max * 100 / 1226
-      @positive_score = @positive_points[maximum] * 100 / 200
-      @faithful_score = @faithful_points[maximum] * 100 / 200
-      @cooperative_score = @cooperative_points[maximum] * 100 / 200
-      @mental_score = @mental_points[maximum] * 100 / 200
-      @curious_score = @curious_points[maximum] * 100 / 200
-      @background_score = @background_points[maximum] * 100 / 200
+      @total_score = total_points.max * 100 / (max_gap * 5 + max_gap_background)
+      @positive_score = @positive_points[maximum] * 100 / max_gap
+      @faithful_score = @faithful_points[maximum] * 100 / max_gap
+      @cooperative_score = @cooperative_points[maximum] * 100 / max_gap
+      @mental_score = @mental_points[maximum] * 100 / max_gap
+      @curious_score = @curious_points[maximum] * 100 / max_gap
+      @background_score = @background_points[maximum] * 100 / max_gap_background
     end
 end

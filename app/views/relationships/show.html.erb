@@ -1,49 +1,10 @@
-<p>
-  <strong>Relation sender:</strong>
-  <%= @relationship.follower_id %>
-</p>
+<h2>マッチング成立！</h2>
 
-<p>
-  <strong>Relation recipient:</strong>
-  <%= @relationship.followed_id %>
-</p>
+<div class="matching_user_icon">
+  <%= image_tag @matching_user.icon %>
+</div>
 
-<p>
-  <strong>total_score:</strong>
-  <%= @relationship.total_score %>
-</p>
-
-<p>
-  <strong>score1:</strong>
-  <%= @relationship.positive %>
-</p>
-
-<p>
-  <strong>score2:</strong>
-  <%= @relationship.faithful %>
-</p>
-
-<p>
-  <strong>score3:</strong>
-  <%= @relationship.cooperative %>
-</p>
-
-<p>
-  <strong>score4:</strong>
-  <%= @relationship.mental %>
-</p>
-
-<p>
-  <strong>score5:</strong>
-  <%= @relationship.curious %>
-</p>
-
-<p>
-  <strong>score6:</strong>
-  <%= @relationship.background %>
-</p>
-
- <%= link_to 'メッセージ', conversations_path(sender_id: current_user.id, recipient_id: @matching_user.id), method: :post%>
+<%= link_to "#{@matching_user.name}さんにメッセージを送る", conversations_path(sender_id: current_user.id, recipient_id: @matching_user.id), method: :post%>
 
 <!-- チャート描画キャンバス -->
 <div><canvas id="myChart"></canvas></div>
@@ -205,3 +166,48 @@ $("#removeData").click(function(){
 });
 
 </script>
+
+<p>
+  <strong>Relation sender:</strong>
+  <%= @relationship.follower_id %>
+</p>
+
+<p>
+  <strong>Relation recipient:</strong>
+  <%= @relationship.followed_id %>
+</p>
+
+<p>
+  <strong>total_score:</strong>
+  <%= @relationship.total_score %>
+</p>
+
+<p>
+  <strong>score1:</strong>
+  <%= @relationship.positive %>
+</p>
+
+<p>
+  <strong>score2:</strong>
+  <%= @relationship.faithful %>
+</p>
+
+<p>
+  <strong>score3:</strong>
+  <%= @relationship.cooperative %>
+</p>
+
+<p>
+  <strong>score4:</strong>
+  <%= @relationship.mental %>
+</p>
+
+<p>
+  <strong>score5:</strong>
+  <%= @relationship.curious %>
+</p>
+
+<p>
+  <strong>score6:</strong>
+  <%= @relationship.background %>
+</p>

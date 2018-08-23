@@ -49,13 +49,13 @@
                 color: white;
             }
         }
-        .navbar-nav > li > a,
-        .navbar-nav > li > a:focus {
-            color: fade-out(white, .3);
-            &:hover {
-                color: white;
-            }
-        }
+        // .navbar-nav > li > a,
+        // .navbar-nav > li > a:focus {
+        //     color: fade-out(white, .3);
+        //     &:hover {
+        //         color: white;
+        //     }
+        // }
         &.navbar-shrink {
             border-color: fade-out($gray-darker, .9);
             background-color: white;

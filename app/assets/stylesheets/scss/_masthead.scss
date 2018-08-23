@@ -6,10 +6,9 @@ header.masthead {
     padding-top: 150px;
     padding-bottom: 100px;
 
-    color: white;
-    background: url('/bg-pattern.png'), $theme-secondary;
-    background: url('/bg-pattern.png'), -webkit-linear-gradient(to left, $theme-secondary, $theme-tertiary);
-    background: url('/bg-pattern.png'), linear-gradient(to left, $theme-secondary, $theme-tertiary);
+    color: rgba(0, 0, 0, 0.4);
+    background: url('/header.jpg') left bottom no-repeat;
+    background-size: cover;
     .header-content {
         max-width: 500px;
         margin-bottom: 100px;

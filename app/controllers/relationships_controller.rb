@@ -2,7 +2,11 @@ class RelationshipsController < ApplicationController
   before_action :set_relationship, only: [:show, :edit, :update, :destroy]
 
   def show
-    @matching_user = User.find(@relationship.followed_id)
+    if @relationship.follower_id == current_user.id
+      @matching_user = User.find(@relationship.followed_id)
+    else
+      @matching_user = User.find(@relationship.follower_id)
+    end
   end
 
   def new

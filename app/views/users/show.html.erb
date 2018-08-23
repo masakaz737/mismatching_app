@@ -1,14 +1,5 @@
 <h1>ユーザー情報</h1>
 
-<% if @questionnaire.blank? %>
-  <%= link_to "質問に答える", new_user_questionnaire_path(@user.id) %>
-<% else %>
-  <%= form_with(model: current_user.active_relationships.new, local: true) do |f| %>
-    <%= f.submit "マッチング" %>
-  <% end %>
-  <%= link_to "回答を修正する", edit_user_questionnaire_path(@user.id, @user.questionnaire.id) %>
-<% end %>
-
 <div class="user_icon">
   <%= image_tag @user.icon %>
 </div>
@@ -24,6 +15,15 @@
 <p>名前：<%= @user.name %></p>
 <p>メールアドレス：<%= @user.email %></p>
 
+<% if @questionnaire.blank? %>
+  <%= link_to "質問に答える", new_user_questionnaire_path(@user.id) %>
+<% else %>
+  <%= form_with(model: current_user.active_relationships.new, local: true) do |f| %>
+    <%= f.submit "マッチング" %>
+  <% end %>
+  <%= link_to "回答を修正する", edit_user_questionnaire_path(@user.id, @user.questionnaire.id) %>
+<% end %>
+
 <% unless @questionnaire.blank? %>
   <h3><%= @user.name %>さんの回答 </h3>
   <p>性別：<%= @user.questionnaire.sex %></p>
@@ -31,29 +31,31 @@
   <p>出身地：<%= @user.questionnaire.birthplace %></p>
   <p>学歴：<%= @user.questionnaire.education %></p>
   <p>職業：<%= @user.questionnaire.job %></p>
-  <p>質問1：<%= @user.questionnaire.question1 %></p>
-  <p>質問2：<%= @user.questionnaire.question2 %></p>
-  <p>質問3：<%= @user.questionnaire.question3 %></p>
-  <p>質問4：<%= @user.questionnaire.question4 %></p>
-  <p>質問5：<%= @user.questionnaire.question5 %></p>
-  <p>質問6：<%= @user.questionnaire.question6 %></p>
-  <p>質問7：<%= @user.questionnaire.question7 %></p>
-  <p>質問8：<%= @user.questionnaire.question8 %></p>
-  <p>質問9：<%= @user.questionnaire.question9 %></p>
-  <p>質問10：<%= @user.questionnaire.question10 %></p>
-  <p>質問11：<%= @user.questionnaire.question11 %></p>
-  <p>質問12：<%= @user.questionnaire.question12 %></p>
-  <p>質問13：<%= @user.questionnaire.question13 %></p>
-  <p>質問14：<%= @user.questionnaire.question14 %></p>
-  <p>質問15：<%= @user.questionnaire.question15 %></p>
-  <p>質問16：<%= @user.questionnaire.question16 %></p>
-  <p>質問17：<%= @user.questionnaire.question17 %></p>
-  <p>質問18：<%= @user.questionnaire.question18 %></p>
-  <p>質問19：<%= @user.questionnaire.question19 %></p>
-  <p>質問20：<%= @user.questionnaire.question20 %></p>
-  <p>質問21：<%= @user.questionnaire.question21 %></p>
-  <p>質問22：<%= @user.questionnaire.question22 %></p>
-  <p>質問23：<%= @user.questionnaire.question23 %></p>
-  <p>質問24：<%= @user.questionnaire.question24 %></p>
-  <p>質問25：<%= @user.questionnaire.question25 %></p>
+  <p>
+    質問1：<%= @user.questionnaire.question1 %>　
+    質問2：<%= @user.questionnaire.question2 %>　
+    質問3：<%= @user.questionnaire.question3 %>　
+    質問4：<%= @user.questionnaire.question4 %>　
+    質問5：<%= @user.questionnaire.question5 %>　
+    質問6：<%= @user.questionnaire.question6 %>　
+    質問7：<%= @user.questionnaire.question7 %>　
+    質問8：<%= @user.questionnaire.question8 %>　
+    質問9：<%= @user.questionnaire.question9 %>　
+    質問10：<%= @user.questionnaire.question10 %>　
+    質問11：<%= @user.questionnaire.question11 %>　
+    質問12：<%= @user.questionnaire.question12 %>　
+    質問13：<%= @user.questionnaire.question13 %>　
+    質問14：<%= @user.questionnaire.question14 %>　
+    質問15：<%= @user.questionnaire.question15 %>　
+    質問16：<%= @user.questionnaire.question16 %>　
+    質問17：<%= @user.questionnaire.question17 %>　
+    質問18：<%= @user.questionnaire.question18 %>　
+    質問19：<%= @user.questionnaire.question19 %>　
+    質問20：<%= @user.questionnaire.question20 %>　
+    質問21：<%= @user.questionnaire.question21 %>　
+    質問22：<%= @user.questionnaire.question22 %>　
+    質問23：<%= @user.questionnaire.question23 %>　
+    質問24：<%= @user.questionnaire.question24 %>　
+    質問25：<%= @user.questionnaire.question25 %>
+  </p>
 <% end %>

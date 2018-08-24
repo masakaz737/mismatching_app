@@ -1,0 +1,18 @@
+<h2>プロフィール編集</h2>
+
+<div class="user_icon">
+  <%= image_tag @user.icon %>
+</div>
+<%= form_with(model: @user, local: true) do |form| %>
+  <div class="field">
+    <%= form.file_field :icon, id: :user_icon %>
+  </div>
+  <p>名前:<%= @user.name %></p>
+  <div class="field">
+    <%= form.label :自己紹介 %><br>
+    <%= form.text_area :biography, id: :biography %>
+  </div>
+  <div class="actions">
+    <%= form.submit "更新" %>
+  </div>
+<% end %>

@@ -5,10 +5,13 @@ class UsersController < ApplicationController
     @questionnaire = Questionnaire.find_by(user_id: @user.id)
   end
 
+  def edit
+  end
+
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'icon was successfully updated.' }
+        format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :show }
@@ -24,6 +27,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:icon, :icon_cache)
+    params.require(:user).permit(:biography, :icon, :icon_cache)
   end
 end

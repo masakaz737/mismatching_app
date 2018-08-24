@@ -9,15 +9,6 @@
 <!-- チャート描画キャンバス -->
 <div><canvas id="myChart"></canvas></div>
 
-<!-- 各ボタン -->
-<div style="text-align:center">
-	<button id="randomizeData">ランダムデータ</button>
-	<button id="addDataset">データセットの追加</button>
-	<button id="removeDataset">データセットの削除</button>
-	<button id="addData">データの追加</button>
-	<button id="removeData">データの削除</button>
-</div>
-
 <script>
 
 // 色の設定
@@ -29,11 +20,6 @@ var colorSet = {
 	blue: 'rgb(54, 162, 235)',
 	purple: 'rgb(153, 102, 255)',
 	grey: 'rgb(201, 203, 207)'
-};
-
-// 乱数生成(0～100)
-var rnd100 = function(){
-	return Math.round(Math.random() * 100);
 };
 
 // 色のRGB変換

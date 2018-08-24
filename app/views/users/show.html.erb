@@ -3,18 +3,11 @@
 <div class="user_icon">
   <%= image_tag @user.icon %>
 </div>
-<%= form_with(model: @user, local: true) do |form| %>
-  <div class="field">
-    <%= form.file_field :icon, id: :user_icon %>
-  </div>
-  <div class="actions">
-    <%= form.submit "画像を変更" %>
-  </div>
-<% end %>
 
 <p>名前：<%= @user.name %></p>
 <p>メールアドレス：<%= @user.email %></p>
 <p>自己紹介：<%= @user.biography %></p>
+<p><%= link_to "基本情報を変更する",  edit_user_path(@user) %></p>
 
 <% if @questionnaire.blank? %>
   <%= link_to "質問に答える", new_user_questionnaire_path(@user.id) %>

@@ -12,6 +12,15 @@ body{
   padding-top: 56px;
 }
 
+.wrapper{
+  max-width: 100%;
+  width:100%;
+  position: relative;
+  height: auto !important;
+  min-height: 100%;
+  padding-bottom: 87px;
+}
+
 .container-fluid{
   width:100%;
   position: relative;

@@ -6,8 +6,7 @@
 
 <%= link_to "#{@matching_user.name}さんにメッセージを送る", conversations_path(sender_id: current_user.id, recipient_id: @matching_user.id), method: :post%>
 
-<!-- チャート描画キャンバス -->
-<div><canvas id="myChart"></canvas></div>
+<div class="matching_chart"><canvas id="myChart"></canvas></div>
 
 <script>
 
@@ -33,7 +32,7 @@ var config = {
 	data: {
 		labels: ["外向性", "誠実性", "協調性", "精神的安定性", "開放性", "生い立ち/環境"],
 		datasets: [{
-			label: "運動量",
+			label: "※ミスマッチ度",
 			backgroundColor: color(colorSet.red).alpha(0.5).rgbString(),
 			borderColor: colorSet.red,
 			pointBackgroundColor: colorSet.red,
@@ -48,7 +47,7 @@ var config = {
 			display: true,
 			fontSize:20,
 			fontColor:'#666',
-			text: "<%= @matching_user.name %>さんとのミスマッチ度"
+			text: "<%= @matching_user.name %>さんとのミスマッチ度 : <%= @relationship.total_score %>%"
 		},
 		scale: {
 			display: true,
@@ -72,128 +71,6 @@ var config = {
 	}
 };
 
-/*
- * チャートの作成
- */
 var myRadar = new Chart($("#myChart"), config);
 
-/*
- * ランダムデータ（#randomizeData）
- */
-$("#randomizeData").click(function(){
-	config.data.datasets.forEach(function(dataset){
-		dataset.data = dataset.data.map(function(){
-			return rnd100();
-		});
-	});
-
-	myRadar.update();
-});
-
-var colorNames = Object.keys(colorSet);
-
-/*
- * データセットの追加（#addDataset）
- */
-$("#addDataset").click(function(){
-	var colorName = colorNames[config.data.datasets.length % colorNames.length];;
-	var newColor = colorSet[colorName];
-
-	var newDataset = {
-		label: 'Dataset ' + config.data.datasets.length,
-		borderColor: newColor,
-		backgroundColor: color(newColor).alpha(0.2).rgbString(),
-		pointBorderColor: newColor,
-		data: [],
-	};
-
-	for (var index=0; index < config.data.labels.length; ++index) {
-		newDataset.data.push(rnd100());
-	}
-
-	config.data.datasets.push(newDataset);
-	myRadar.update();
-});
-
-/*
- * データの追加（#addData）
- */
-$("#addData").click(function(){
-	if (config.data.datasets.length > 0){
-		config.data.labels.push('dataset #' + config.data.labels.length);
-
-		config.data.datasets.forEach(function(dataset){
-			dataset.data.push(rnd100());
-		});
-
-		myRadar.update();
-	}
-});
-
-/*
- * データセットの削除（#removeDataset）
- */
-$("#removeDataset").click(function(){
-	config.data.datasets.splice(0, 1);
-	myRadar.update();
-});
-
-/*
- * データの削除（#removeData）
- */
-$("#removeData").click(function(){
-	config.data.labels.pop(); // remove the label first
-
-	config.data.datasets.forEach(function(dataset){
-		dataset.data.pop();
-	});
-
-	myRadar.update();
-});
-
 </script>
-
-<p>
-  <strong>Relation sender:</strong>
-  <%= @relationship.follower_id %>
-</p>
-
-<p>
-  <strong>Relation recipient:</strong>
-  <%= @relationship.followed_id %>
-</p>
-
-<p>
-  <strong>total_score:</strong>
-  <%= @relationship.total_score %>
-</p>
-
-<p>
-  <strong>score1:</strong>
-  <%= @relationship.positive %>
-</p>
-
-<p>
-  <strong>score2:</strong>
-  <%= @relationship.faithful %>
-</p>
-
-<p>
-  <strong>score3:</strong>
-  <%= @relationship.cooperative %>
-</p>
-
-<p>
-  <strong>score4:</strong>
-  <%= @relationship.mental %>
-</p>
-
-<p>
-  <strong>score5:</strong>
-  <%= @relationship.curious %>
-</p>
-
-<p>
-  <strong>score6:</strong>
-  <%= @relationship.background %>
-</p>

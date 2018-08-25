@@ -1,7 +1,5 @@
 class MessagesController < ApplicationController
-  before_action do
-    @conversation = Conversation.find(params[:conversation_id])
-  end
+  before_action :set_conversation, only: [:index, :create]
 
   def index
     @messages = @conversation.messages
@@ -30,6 +28,14 @@ class MessagesController < ApplicationController
     @message = @conversation.messages.build
   end
 
+  def message_link_through
+    @message = Message.find(params[:id])
+    @message.update read: true
+    @conversation = @message.conversation
+    binding.pry
+    redirect_to conversation_messages_path(@conversation)
+  end
+
   def create
     @message = @conversation.messages.build(message_params)
     if @message.save
@@ -41,7 +47,11 @@ class MessagesController < ApplicationController
 
   private
 
+  def set_conversation
+    @conversation = Conversation.find(params[:conversation_id])
+  end
+
   def message_params
-    params.require(:message).permit(:body, :user_id)
+    params.require(:message).permit(:body, :user_id, :message_recipient_id)
   end
 end

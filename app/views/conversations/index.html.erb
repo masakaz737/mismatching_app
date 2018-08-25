@@ -3,12 +3,16 @@
     <h2>メッセージ一覧</h2>
   </thead>
   <tbody>
-    <% @conversations.each do |conversation| %>
-      <td>
+    <% @conversations.order('created_at DESC').each do |conversation| %>
         <% if conversation.target_user(current_user).present? %>
-          <%= link_to conversation.target_user(current_user).name, conversation_messages_path(conversation)%>
+          <p>
+            <%= link_to conversation_messages_path(conversation), target: "_blank" do %>
+              <span class="message_sender_icon"><%= image_tag conversation.target_user(current_user).icon %></span>
+              <%= conversation.target_user(current_user).name %>さん
+            <% end %> ->
+            <%= link_to conversation.messages.last.body, conversation_messages_path(conversation) %>
+          </p>
         <% end %>
-      </td>
     <% end %>
   </tbody>
 </table>

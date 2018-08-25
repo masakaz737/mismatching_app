@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180824092702) do
+ActiveRecord::Schema.define(version: 20180825132623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,7 +32,9 @@ ActiveRecord::Schema.define(version: 20180824092702) do
     t.boolean "read", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "message_recipient_id"
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["message_recipient_id"], name: "index_messages_on_message_recipient_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
@@ -119,6 +121,7 @@ ActiveRecord::Schema.define(version: 20180824092702) do
 
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
+  add_foreign_key "messages", "users", column: "message_recipient_id"
   add_foreign_key "notifications", "relationships"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "notified_by_id"

@@ -1,0 +1,17 @@
+<div class="dropdown message-dropdown">
+   <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" id='dropdownMenu1' aria-haspopup="true"
+ aria-expanded="true">
+     <%= Message.where(message_recipient_id: current_user.id).where(read: false).count %>
+     <span class="glyphicon glyphicon-flag"><i class="fas fa-envelope" aria-hidden="true"></i>メッセージ</span>
+   </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+     <% Message.where(message_recipient_id: current_user.id).where(read: false).order('created_at DESC').last(5).each do |message| %>
+     <li>
+       <%= link_to "#{message.user.name}さんからメッセージがあります", message_link_through_path(message) %>
+     </li>
+     <% end %>
+     <li class="text-center">
+       <%= link_to 'メッセージ一覧を見る', conversations_path %>
+     </li>
+   </ul>
+ </div>

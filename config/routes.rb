@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   get 'notifications/:id/link_through', to: 'notifications#link_through', as: :link_through
   get 'notifications', to: 'notifications#index'
+  get 'messages/:id/message_link_through', to: 'messages#message_link_through', as: :message_link_through
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"

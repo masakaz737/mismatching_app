@@ -1,5 +1,6 @@
 class RelationshipsController < ApplicationController
   before_action :set_relationship, only: [:show, :edit, :update, :destroy]
+  after_action :create_notifications, only: [:create]
 
   def show
     if @relationship.follower_id == current_user.id
@@ -16,13 +17,14 @@ class RelationshipsController < ApplicationController
   def create
     if user_signed_in?
       find_matching_user
-      relationship = current_user.follow!(@matching_user)
-      if relationship.save
-        relationship.update(total_score: @total_score, positive: @positive_score,
+      @relationship = current_user.follow!(@matching_user)
+      if @relationship.save
+        @relationship.update(total_score: @total_score, positive: @positive_score,
                             faithful: @faithful_score, cooperative: @cooperative_score,
                             mental: @mental_score, curious: @curious_score,
                             background: @background_score)
-        redirect_to relationship_path(relationship.id)
+
+        redirect_to relationship_path(@relationship.id)
       else
         redirect_to relationship_path(Relationship.find_by(follower_id: current_user.id, followed_id: @matching_user.id).id), notice: 'relationship was already existed.'
       end
@@ -61,6 +63,12 @@ class RelationshipsController < ApplicationController
     def relationship_params
       params.fetch(:relationship, {})
     end
+
+    def create_notifications
+       Notification.create(user_id: @relationship.followed_id,
+        notified_by_id: @relationship.follower_id,
+        relationship_id: @relationship.id)
+     end
 
     def background_calculation
       @questionnaires = Questionnaire.all.order(:id)

@@ -1,0 +1,13 @@
+<div class="dropdown notification-dropdown">
+   <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" id='dropdownMenu1' aria-haspopup="true" aria-expanded="true">
+     <%= current_user.notifications.where(read: false).count %>
+     <span class="glyphicon glyphicon-flag"><i class="fa fa-bell" aria-hidden="true"></i>通知</span>
+   </button>
+   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+     <%= render current_user.notifications.where(read: false).order('created_at DESC').last(5) %>
+     <li class="divider" role="separator"> </li>
+     <li class="text-center">
+       <%= link_to '通知一覧を見る', notifications_path %>
+     </li>
+   </ul>
+ </div>

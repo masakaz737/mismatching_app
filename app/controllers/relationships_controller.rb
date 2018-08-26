@@ -79,11 +79,11 @@ class RelationshipsController < ApplicationController
       job_points = []
 
       @questionnaires.each do |questionnaire|
-        sex_points.push(((current_user.questionnaire.sex - questionnaire.sex) * 40).abs)
+        sex_points.push(((current_user.questionnaire.sex_before_type_cast - questionnaire.sex_before_type_cast) * 40).abs)
         birthday_points.push(((current_user.questionnaire.age - questionnaire.age) * 1).abs)
         birthplace_points.push(((current_user.questionnaire.birthplace_before_type_cast - questionnaire.birthplace_before_type_cast) * 1).abs)
-        education_points.push(((current_user.questionnaire.education - questionnaire.education) * 10).abs)
-        job_points.push(((current_user.questionnaire.question1 - questionnaire.question1) * 10).abs)
+        education_points.push(((current_user.questionnaire.education_before_type_cast - questionnaire.education_before_type_cast) * 10).abs)
+        job_points.push(((current_user.questionnaire.job_before_type_cast - questionnaire.job_before_type_cast) * 10).abs)
       end
       @background_points = [sex_points, birthday_points, birthplace_points, education_points, job_points].transpose.map{|n| n.inject(:+)}
     end
@@ -111,11 +111,6 @@ class RelationshipsController < ApplicationController
       score18 = []
       score19 = []
       score20 = []
-      score21 = []
-      score22 = []
-      score23 = []
-      score24 = []
-      score25 = []
 
       @questionnaires.each do |questionnaire|
         score1.push(((current_user.questionnaire.question1 - questionnaire.question1).abs) * weight)
@@ -138,17 +133,12 @@ class RelationshipsController < ApplicationController
         score18.push(((current_user.questionnaire.question18 - questionnaire.question18).abs) * weight)
         score19.push(((current_user.questionnaire.question19 - questionnaire.question19).abs) * weight)
         score20.push(((current_user.questionnaire.question20 - questionnaire.question20).abs) * weight)
-        score21.push(((current_user.questionnaire.question21 - questionnaire.question21).abs) * weight)
-        score22.push(((current_user.questionnaire.question22 - questionnaire.question22).abs) * weight)
-        score23.push(((current_user.questionnaire.question23 - questionnaire.question23).abs) * weight)
-        score24.push(((current_user.questionnaire.question24 - questionnaire.question24).abs) * weight)
-        score25.push(((current_user.questionnaire.question25 - questionnaire.question25).abs) * weight)
       end
-      @positive_points = [score1, score2, score3, score4, score5].transpose.map{|n| n.inject(:+)}
-      @faithful_points = [score6, score7, score8, score9, score10].transpose.map{|n| n.inject(:+)}
-      @cooperative_points = [score11, score12, score13, score14, score15].transpose.map{|n| n.inject(:+)}
-      @mental_points = [score16, score17, score18, score19, score20].transpose.map{|n| n.inject(:+)}
-      @curious_points = [score21, score22, score23, score24, score25].transpose.map{|n| n.inject(:+)}
+      @positive_points = [score1, score6, score11, score16].transpose.map{|n| n.inject(:+)}
+      @faithful_points = [score2, score7, score12, score17].transpose.map{|n| n.inject(:+)}
+      @cooperative_points = [score3, score8, score13, score18].transpose.map{|n| n.inject(:+)}
+      @mental_points = [score4, score9, score14, score19].transpose.map{|n| n.inject(:+)}
+      @curious_points = [score5, score10, score15, score20].transpose.map{|n| n.inject(:+)}
     end
 
     def find_matching_user
@@ -158,7 +148,9 @@ class RelationshipsController < ApplicationController
       total_points = [@positive_points, @faithful_points, @cooperative_points, @mental_points, @curious_points, @background_points].transpose.map{|n| n.inject(:+)}
       maximum = total_points.index(total_points.max)
 
-      max_gap = (5 - 1) * 5 * 10 #(回答5 - 回答1) * 要素毎の設問数 * weight
+      #(回答5 - 回答1) * 要素毎の設問数 * weight
+      max_gap = (5 - 1) * 4 * 10
+      #(女2 - 男1) * 40 + (65歳 - 18歳) + (海外50 - 北海道1) + (学歴5 - 学歴1) * 10 + (職業5 - 職業1) * 10
       max_gap_background = (2 - 1) * 40 + (65 - 18) + (50 - 1) + (5 - 1) * 10 * 2
 
       @matching_user = User.find(@questionnaires[maximum].user_id)

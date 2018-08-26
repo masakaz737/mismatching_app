@@ -1,6 +1,7 @@
 class Questionnaire < ApplicationRecord
   belongs_to :user
 
+  # validates_presence_of :sex, :birthday, :birthplace, :education,
   validates :sex, presence: true
   validates :birthday, presence: true
   validates :birthplace, presence: true
@@ -48,4 +49,9 @@ class Questionnaire < ApplicationRecord
     福岡県:40,佐賀県:41,長崎県:42,熊本県:43,大分県:44,宮崎県:45,鹿児島県:46,沖縄県:47,
     海外:50
   }
+
+  enum sex: { 男:1, 女:2 }
+  enum education: { 高卒:1, 短大、専門卒:2, 大卒:3, 院卒:4, その他:5 }
+  enum job: { 無職:1, 学生:2, 会社員:3, フリーランス:4, 経営者:5 }
+
 end

@@ -11,6 +11,7 @@
               <%= conversation.target_user(current_user).name %>さん
             <% end %> ->
             <%= link_to conversation.messages.last.body, conversation_messages_path(conversation) %>
+            <%= conversation.messages.last.message_time %>
           </p>
         <% end %>
     <% end %>

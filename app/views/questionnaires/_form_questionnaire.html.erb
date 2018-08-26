@@ -1,12 +1,12 @@
 <%= form_with(model: [@user, @questionnaire], local: true) do |form| %>
 
 <div class="field">
-  <%= form.label :性別 %>
-  <%= form.radio_button :sex, "1" %> 男
-  <%= form.radio_button :sex, "2" %> 女
+  <%= form.label :sex, "性別" %>
+  <%= form.radio_button :sex, :男 %> 男
+  <%= form.radio_button :sex, :女 %> 女
 </div>
 <div class="field">
-  <%= form.label :生年月日 %>
+  <%= form.label :birthday, "生年月日" %>
   <%= raw sprintf(
               form.date_select(
                   :birthday,
@@ -19,224 +19,229 @@
 </div>
 <div class="field">
   <%= form.label :出身地 %>
-  <%= form.select :birthplace, Questionnaire.birthplaces.keys, {prompt: '選択してください'}, class: 'form-control btn btn-info' %>
+  <%= form.select :birthplace, Questionnaire.birthplaces.keys, {prompt: '選択してください'} %>
 </div>
 <div class="field">
-  <%= form.label :学歴 %>
-  <%= form.radio_button :education, "1" %> 高卒
-  <%= form.radio_button :education, "2" %> 短大、専門卒
-  <%= form.radio_button :education, "3" %> 大卒
-  <%= form.radio_button :education, "4" %> 院卒
-  <%= form.radio_button :education, "5" %> その他
+  <%= form.label :education, "学歴" %>
+  <%= form.radio_button :education, :高卒 %> 高卒
+  <%= form.radio_button :education, :短大、専門卒 %> 短大、専門卒
+  <%= form.radio_button :education, :大卒 %> 大卒
+  <%= form.radio_button :education, :院卒 %> 院卒
+  <%= form.radio_button :education, :その他 %> その他
 </div>
 <div class="field">
-  <%= form.label :職業 %>
-  <%= form.radio_button :job, "1" %> 無職
-  <%= form.radio_button :job, "2" %> 学生
-  <%= form.radio_button :job, "3" %> 会社員
-  <%= form.radio_button :job, "4" %> フリーランス
-  <%= form.radio_button :job, "5" %> 経営者
+  <%= form.label :job, "職業" %>
+  <%= form.radio_button :job, :無職 %> 無職
+  <%= form.radio_button :job, :学生 %> 学生
+  <%= form.radio_button :job, :会社員 %> 会社員
+  <%= form.radio_button :job, :フリーランス %> フリーランス
+  <%= form.radio_button :job, :経営者 %> 経営者
 </div>
-<div class="field">
-  <%= form.label :質問1 %>
-  <%= form.radio_button :question1, "1" %> 1
-  <%= form.radio_button :question1, "2" %> 2
-  <%= form.radio_button :question1, "3" %> 3
-  <%= form.radio_button :question1, "4" %> 4
-  <%= form.radio_button :question1, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問2 %>
-  <%= form.radio_button :question2, "1" %> 1
-  <%= form.radio_button :question2, "2" %> 2
-  <%= form.radio_button :question2, "3" %> 3
-  <%= form.radio_button :question2, "4" %> 4
-  <%= form.radio_button :question2, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問3 %>
-  <%= form.radio_button :question3, "1" %> 1
-  <%= form.radio_button :question3, "2" %> 2
-  <%= form.radio_button :question3, "3" %> 3
-  <%= form.radio_button :question3, "4" %> 4
-  <%= form.radio_button :question3, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問4 %>
-  <%= form.radio_button :question4, "1" %> 1
-  <%= form.radio_button :question4, "2" %> 2
-  <%= form.radio_button :question4, "3" %> 3
-  <%= form.radio_button :question4, "4" %> 4
-  <%= form.radio_button :question4, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問5 %>
-  <%= form.radio_button :question5, "1" %> 1
-  <%= form.radio_button :question5, "2" %> 2
-  <%= form.radio_button :question5, "3" %> 3
-  <%= form.radio_button :question5, "4" %> 4
-  <%= form.radio_button :question5, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問6 %>
-  <%= form.radio_button :question6, "1" %> 1
-  <%= form.radio_button :question6, "2" %> 2
-  <%= form.radio_button :question6, "3" %> 3
-  <%= form.radio_button :question6, "4" %> 4
-  <%= form.radio_button :question6, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問7 %>
-  <%= form.radio_button :question7, "1" %> 1
-  <%= form.radio_button :question7, "2" %> 2
-  <%= form.radio_button :question7, "3" %> 3
-  <%= form.radio_button :question7, "4" %> 4
-  <%= form.radio_button :question7, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問8 %>
-  <%= form.radio_button :question8, "1" %> 1
-  <%= form.radio_button :question8, "2" %> 2
-  <%= form.radio_button :question8, "3" %> 3
-  <%= form.radio_button :question8, "4" %> 4
-  <%= form.radio_button :question8, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問9 %>
-  <%= form.radio_button :question9, "1" %> 1
-  <%= form.radio_button :question9, "2" %> 2
-  <%= form.radio_button :question9, "3" %> 3
-  <%= form.radio_button :question9, "4" %> 4
-  <%= form.radio_button :question9, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問10 %>
-  <%= form.radio_button :question10, "1" %> 1
-  <%= form.radio_button :question10, "2" %> 2
-  <%= form.radio_button :question10, "3" %> 3
-  <%= form.radio_button :question10, "4" %> 4
-  <%= form.radio_button :question10, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問11 %>
-  <%= form.radio_button :question11, "1" %> 1
-  <%= form.radio_button :question11, "2" %> 2
-  <%= form.radio_button :question11, "3" %> 3
-  <%= form.radio_button :question11, "4" %> 4
-  <%= form.radio_button :question11, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問12 %>
-  <%= form.radio_button :question12, "1" %> 1
-  <%= form.radio_button :question12, "2" %> 2
-  <%= form.radio_button :question12, "3" %> 3
-  <%= form.radio_button :question12, "4" %> 4
-  <%= form.radio_button :question12, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問13 %>
-  <%= form.radio_button :question13, "1" %> 1
-  <%= form.radio_button :question13, "2" %> 2
-  <%= form.radio_button :question13, "3" %> 3
-  <%= form.radio_button :question13, "4" %> 4
-  <%= form.radio_button :question13, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問14 %>
-  <%= form.radio_button :question14, "1" %> 1
-  <%= form.radio_button :question14, "2" %> 2
-  <%= form.radio_button :question14, "3" %> 3
-  <%= form.radio_button :question14, "4" %> 4
-  <%= form.radio_button :question14, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問15 %>
-  <%= form.radio_button :question15, "1" %> 1
-  <%= form.radio_button :question15, "2" %> 2
-  <%= form.radio_button :question15, "3" %> 3
-  <%= form.radio_button :question15, "4" %> 4
-  <%= form.radio_button :question15, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問16 %>
-  <%= form.radio_button :question16, "1" %> 1
-  <%= form.radio_button :question16, "2" %> 2
-  <%= form.radio_button :question16, "3" %> 3
-  <%= form.radio_button :question16, "4" %> 4
-  <%= form.radio_button :question16, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問17 %>
-  <%= form.radio_button :question17, "1" %> 1
-  <%= form.radio_button :question17, "2" %> 2
-  <%= form.radio_button :question17, "3" %> 3
-  <%= form.radio_button :question17, "4" %> 4
-  <%= form.radio_button :question17, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問18 %>
-  <%= form.radio_button :question18, "1" %> 1
-  <%= form.radio_button :question18, "2" %> 2
-  <%= form.radio_button :question18, "3" %> 3
-  <%= form.radio_button :question18, "4" %> 4
-  <%= form.radio_button :question18, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問19 %>
-  <%= form.radio_button :question19, "1" %> 1
-  <%= form.radio_button :question19, "2" %> 2
-  <%= form.radio_button :question19, "3" %> 3
-  <%= form.radio_button :question19, "4" %> 4
-  <%= form.radio_button :question19, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問20 %>
-  <%= form.radio_button :question20, "1" %> 1
-  <%= form.radio_button :question20, "2" %> 2
-  <%= form.radio_button :question20, "3" %> 3
-  <%= form.radio_button :question20, "4" %> 4
-  <%= form.radio_button :question20, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問21 %>
-  <%= form.radio_button :question21, "1" %> 1
-  <%= form.radio_button :question21, "2" %> 2
-  <%= form.radio_button :question21, "3" %> 3
-  <%= form.radio_button :question21, "4" %> 4
-  <%= form.radio_button :question21, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問22 %>
-  <%= form.radio_button :question22, "1" %> 1
-  <%= form.radio_button :question22, "2" %> 2
-  <%= form.radio_button :question22, "3" %> 3
-  <%= form.radio_button :question22, "4" %> 4
-  <%= form.radio_button :question22, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問23 %>
-  <%= form.radio_button :question23, "1" %> 1
-  <%= form.radio_button :question23, "2" %> 2
-  <%= form.radio_button :question23, "3" %> 3
-  <%= form.radio_button :question23, "4" %> 4
-  <%= form.radio_button :question23, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問24 %>
-  <%= form.radio_button :question24, "1" %> 1
-  <%= form.radio_button :question24, "2" %> 2
-  <%= form.radio_button :question24, "3" %> 3
-  <%= form.radio_button :question24, "4" %> 4
-  <%= form.radio_button :question24, "5" %> 5
-</div>
-<div class="field">
-  <%= form.label :質問25 %>
-  <%= form.radio_button :question25, "1" %> 1
-  <%= form.radio_button :question25, "2" %> 2
-  <%= form.radio_button :question25, "3" %> 3
-  <%= form.radio_button :question25, "4" %> 4
-  <%= form.radio_button :question25, "5" %> 5
-</div>
+
+<p>1:そう思う 2:どちらかといえばそう思う 3:どちらともいえない 4:どちらかといえばそう思わない 5:そう思わない</p>
+
+<table>
+  <tr class="field">
+    <td><%= form.label :question1, "Q1：すぐ友だちを作ることできる" %></td>
+    <td>
+      <%= form.radio_button :question1, "1" %> 1
+      <%= form.radio_button :question1, "2" %> 2
+      <%= form.radio_button :question1, "3" %> 3
+      <%= form.radio_button :question1, "4" %> 4
+      <%= form.radio_button :question1, "5" %> 5
+    </td>
+  </tr>
+  <tr class="field">
+    <td><%= form.label :question2, "Q2：感情的に取り乱すことはない" %></td>
+    <td>
+      <%= form.radio_button :question2, "1" %> 1
+      <%= form.radio_button :question2, "2" %> 2
+      <%= form.radio_button :question2, "3" %> 3
+      <%= form.radio_button :question2, "4" %> 4
+      <%= form.radio_button :question2, "5" %> 5
+    </td>
+  </tr>
+  <tr class="field">
+    <td><%= form.label :question3, "Q3：友だちと一緒に行動することが多い" %></td>
+    <td>
+      <%= form.radio_button :question3, "1" %> 1
+      <%= form.radio_button :question3, "2" %> 2
+      <%= form.radio_button :question3, "3" %> 3
+      <%= form.radio_button :question3, "4" %> 4
+      <%= form.radio_button :question3, "5" %> 5
+    </td>
+  </tr>
+  <tr class="field">
+    <td><%= form.label :question4, "Q4：新しい仕事や環境でもすぐに慣れることができる" %></td>
+    <td>
+      <%= form.radio_button :question4, "1" %> 1
+      <%= form.radio_button :question4, "2" %> 2
+      <%= form.radio_button :question4, "3" %> 3
+      <%= form.radio_button :question4, "4" %> 4
+      <%= form.radio_button :question4, "5" %> 5
+    </td>
+  </tr>
+  <tr class="field">
+    <td><%= form.label :question5, "Q5：物事の真意を調べることに興味がある" %></td>
+    <td>
+      <%= form.radio_button :question5, "1" %> 1
+      <%= form.radio_button :question5, "2" %> 2
+      <%= form.radio_button :question5, "3" %> 3
+      <%= form.radio_button :question5, "4" %> 4
+      <%= form.radio_button :question5, "5" %> 5
+    </td>
+  </tr>
+  <tr class="field">
+    <td><%= form.label :question6, "Q6：人と話しをするのが好きだ" %></td>
+    <td>
+      <%= form.radio_button :question6, "1" %> 1
+      <%= form.radio_button :question6, "2" %> 2
+      <%= form.radio_button :question6, "3" %> 3
+      <%= form.radio_button :question6, "4" %> 4
+      <%= form.radio_button :question6, "5" %> 5
+    </td>
+  </tr>
+  <tr class="field">
+    <td><%= form.label :question7, "Q7：決心をしたらやり通す" %></td>
+    <td>
+      <%= form.radio_button :question7, "1" %> 1
+      <%= form.radio_button :question7, "2" %> 2
+      <%= form.radio_button :question7, "3" %> 3
+      <%= form.radio_button :question7, "4" %> 4
+      <%= form.radio_button :question7, "5" %> 5
+    </td>
+  </tr>
+  <tr class="field">
+    <td><%= form.label :question8, "Q8：チームワークを大切にしている" %></td>
+    <td>
+      <%= form.radio_button :question8, "1" %> 1
+      <%= form.radio_button :question8, "2" %> 2
+      <%= form.radio_button :question8, "3" %> 3
+      <%= form.radio_button :question8, "4" %> 4
+      <%= form.radio_button :question8, "5" %> 5
+    </td>
+  </tr>
+  <tr class="field">
+    <td><%= form.label :question9, "Q9：何かを始める前に、あれこれ心配してしまう" %></td>
+    <td>
+      <%= form.radio_button :question9, "1" %> 1
+      <%= form.radio_button :question9, "2" %> 2
+      <%= form.radio_button :question9, "3" %> 3
+      <%= form.radio_button :question9, "4" %> 4
+      <%= form.radio_button :question9, "5" %> 5
+    </td>
+  </tr>
+  <tr class="field">
+    <td><%= form.label :question10, "Q10：新しい経験を大切にしている" %></td>
+    <td>
+      <%= form.radio_button :question10, "1" %> 1
+      <%= form.radio_button :question10, "2" %> 2
+      <%= form.radio_button :question10, "3" %> 3
+      <%= form.radio_button :question10, "4" %> 4
+      <%= form.radio_button :question10, "5" %> 5
+    </td>
+  </tr>
+  <tr class="field">
+    <td><%= form.label :question11, "Q11：明るい性格だ" %></td>
+    <td>
+      <%= form.radio_button :question11, "1" %> 1
+      <%= form.radio_button :question11, "2" %> 2
+      <%= form.radio_button :question11, "3" %> 3
+      <%= form.radio_button :question11, "4" %> 4
+      <%= form.radio_button :question11, "5" %> 5
+    </td>
+  </tr>
+  <tr class="field">
+    <td><%= form.label :question12, "Q12：物事は正確に行う" %></td>
+    <td>
+      <%= form.radio_button :question12, "1" %> 1
+      <%= form.radio_button :question12, "2" %> 2
+      <%= form.radio_button :question12, "3" %> 3
+      <%= form.radio_button :question12, "4" %> 4
+      <%= form.radio_button :question12, "5" %> 5
+    </td>
+  </tr>
+  <tr class="field">
+    <td><%= form.label :question13, "Q13：人と協力して，物事を成し遂げるのが好きだ" %></td>
+    <td>
+      <%= form.radio_button :question13, "1" %> 1
+      <%= form.radio_button :question13, "2" %> 2
+      <%= form.radio_button :question13, "3" %> 3
+      <%= form.radio_button :question13, "4" %> 4
+      <%= form.radio_button :question13, "5" %> 5
+    </td>
+  </tr>
+  <tr class="field">
+    <td><%= form.label :question14, "Q14：人のちょっとした言葉や出来事で、深く傷ついてしまう" %></td>
+    <td>
+      <%= form.radio_button :question14, "1" %> 1
+      <%= form.radio_button :question14, "2" %> 2
+      <%= form.radio_button :question14, "3" %> 3
+      <%= form.radio_button :question14, "4" %> 4
+      <%= form.radio_button :question14, "5" %> 5
+    </td>
+  </tr>
+  <tr class="field">
+    <td><%= form.label :question15, "Q15：他人の優れた特徴を言い当てることが得意だ" %></td>
+    <td>
+      <%= form.radio_button :question15, "1" %> 1
+      <%= form.radio_button :question15, "2" %> 2
+      <%= form.radio_button :question15, "3" %> 3
+      <%= form.radio_button :question15, "4" %> 4
+      <%= form.radio_button :question15, "5" %> 5
+    </td>
+  </tr>
+  <tr class="field">
+    <td><%= form.label :question16, "Q16：交友関係は広い" %></td>
+    <td>
+      <%= form.radio_button :question16, "1" %> 1
+      <%= form.radio_button :question16, "2" %> 2
+      <%= form.radio_button :question16, "3" %> 3
+      <%= form.radio_button :question16, "4" %> 4
+      <%= form.radio_button :question16, "5" %> 5
+    </td>
+  </tr>
+  <tr class="field">
+    <td><%= form.label :question17, "Q17：確実に、こつこつと努力する方だ" %></td>
+    <td>
+      <%= form.radio_button :question17, "1" %> 1
+      <%= form.radio_button :question17, "2" %> 2
+      <%= form.radio_button :question17, "3" %> 3
+      <%= form.radio_button :question17, "4" %> 4
+      <%= form.radio_button :question17, "5" %> 5
+    </td>
+  </tr>
+  <tr class="field">
+    <td><%= form.label :question18, "Q18：相手の立場に立って、その人のために何かをすることができる" %></td>
+    <td>
+      <%= form.radio_button :question18, "1" %> 1
+      <%= form.radio_button :question18, "2" %> 2
+      <%= form.radio_button :question18, "3" %> 3
+      <%= form.radio_button :question18, "4" %> 4
+      <%= form.radio_button :question18, "5" %> 5
+    </td>
+  </tr>
+  <tr class="field">
+    <td><%= form.label :question19, "Q19：人前では緊張してしまう" %></td>
+    <td>
+      <%= form.radio_button :question19, "1" %> 1
+      <%= form.radio_button :question19, "2" %> 2
+      <%= form.radio_button :question19, "3" %> 3
+      <%= form.radio_button :question19, "4" %> 4
+      <%= form.radio_button :question19, "5" %> 5
+    </td>
+  </tr>
+  <tr class="field">
+    <td><%= form.label :question20, "Q20：好奇心旺盛で、知らないことにも関心を持っている" %></td>
+    <td>
+      <%= form.radio_button :question20, "1" %> 1
+      <%= form.radio_button :question20, "2" %> 2
+      <%= form.radio_button :question20, "3" %> 3
+      <%= form.radio_button :question20, "4" %> 4
+      <%= form.radio_button :question20, "5" %> 5
+    </td>
+  </tr>
+</table>
 <div class="actions">
   <%= form.submit "送信" %>
 </div>

@@ -2,3 +2,17 @@
   border-radius: 1rem;
   margin-bottom: 30px;
 }
+
+.btn-outline{
+  color: white;
+  border-radius: 2rem;
+  border-color: #fdcc52;
+  background-color: #fdcc52;
+}
+
+.btn-outline:hover{
+  color: white;
+  border-radius: 2rem;
+  border-color: rgb(252, 106, 106);
+  background-color: rgb(252, 106, 106);
+}

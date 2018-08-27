@@ -5,11 +5,11 @@
     @include transition-all;
     @include heading-font;
     .navbar-brand {
-        color: $theme-primary;
+        color: #000;
         @include heading-font;
         &:hover,
         &:focus {
-            color: darken($theme-primary, 10%);
+            color: $theme-primary !important;
         }
     }
     .navbar-toggler {
@@ -81,6 +81,7 @@
         &.navbar-shrink {
             border-color: fade-out($gray-darker, .9);
             background-color: white;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             .navbar-brand {
                 color: $gray-darker;
                 &:hover,

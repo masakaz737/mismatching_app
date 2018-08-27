@@ -1,12 +1,50 @@
-<h2><%= @matching_user.name %>さんとマッチングしました！</h2>
+<div class="matching_page">
 
-<div class="matching_user_icon">
-  <%= image_tag @matching_user.icon %>
+<h2>マッチングが成立しました！</h2>
+<p><%= @matching_user.name %>さんとのミスマッチ度...</p>
+<h3><span class="count" data-num="<%= @relationship.total_score %>">0</span>%</h3>
+
+<div class="row">
+<div class="matching_user_icon col-lg-6">
+  <%= image_tag current_user.icon %>
 </div>
 
-<%= link_to "#{@matching_user.name}さんにメッセージを送る", conversations_path(sender_id: current_user.id, recipient_id: @matching_user.id), method: :post%>
+<div class="matching_user_icon col-lg-6">
+  <%= image_tag @matching_user.icon %>
+</div>
+</div>
+
+<%= link_to "#{@matching_user.name}さんにメッセージを送る", conversations_path(sender_id: current_user.id, recipient_id: @matching_user.id), method: :post, class: "btn btn-danger btn-danger-ex" %>
 
 <div class="matching_chart"><canvas id="myChart"></canvas></div>
+</div>
+
+<script>
+$(function(){
+    var countElm = $('.count'),
+    countSpeed = 30;
+
+    countElm.each(function(){
+        var self = $(this),
+        countMax = self.attr('data-num'),
+        thisCount = self.text(),
+        countTimer;
+
+        function timer(){
+            countTimer = setInterval(function(){
+                var countNext = thisCount++;
+                self.text(countNext);
+
+                if(countNext == countMax){
+                    clearInterval(countTimer);
+                }
+            },countSpeed);
+        }
+        timer();
+    });
+
+});
+</script>
 
 <script>
 
@@ -32,7 +70,7 @@ var config = {
 	data: {
 		labels: ["外向性", "誠実性", "協調性", "精神的安定性", "開放性", "生い立ち/環境"],
 		datasets: [{
-			label: "※ミスマッチ度",
+			label: "ミスマッチ度",
 			backgroundColor: color(colorSet.red).alpha(0.5).rgbString(),
 			borderColor: colorSet.red,
 			pointBackgroundColor: colorSet.red,
@@ -40,14 +78,12 @@ var config = {
 		},]
 	},
 	options: {
-		animation:false,
-		showTooltips: false,
-		legend: { position: 'bottom' },
+		legend: { display: false },
 		title: {
 			display: true,
 			fontSize:20,
 			fontColor:'#666',
-			text: "<%= @matching_user.name %>さんとのミスマッチ度 : <%= @relationship.total_score %>%"
+			text: "<%= @matching_user.name %>さんとの詳細ミスマッチ度"
 		},
 		scale: {
 			display: true,

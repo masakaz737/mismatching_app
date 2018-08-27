@@ -19,8 +19,7 @@
     }
     .navbar-nav {
         > li {
-            > a {
-                font-size: 11px;
+            > a, button {
                 @include alt-font;
                 &.active {
                     color: $theme-primary !important;
@@ -30,8 +29,8 @@
                     }
                 }
             }
-            > a,
-            > a:focus {
+            > a, button,
+            > a:focus, button:focus {
                 color: $gray-darker;
                 &:hover {
                     color: $theme-primary;
@@ -42,7 +41,6 @@
     .navbar-nav {
         > li {
             > .dropdown {
-                font-size: 11px;
                 @include alt-font;
                 &.active {
                     color: $theme-primary !important;

@@ -50,7 +50,7 @@
                   <%= render 'messages/message_dropdown' %>
                 </li>
                 <li class="nav-item">
-                  <a><%= link_to "プロフィール", user_path(current_user.id), class: "nav-link js-scroll-trigger" %></a>
+                  <a><%= link_to "マイページ", user_path(current_user.id), class: "nav-link js-scroll-trigger" %></a>
                 </li>
                 <li class="nav-item">
                   <a><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link js-scroll-trigger" %></a>
@@ -75,14 +75,12 @@
       <% if alert %>
         <p id="alert" class="alert alert-error"><%= alert %></p>
       <% end %>
-
       <%= yield %>
-
       </div>
 
     <footer>
       <div class="container">
-        <p>&copy; Your Website 2018. All Rights Reserved.</p>
+        <p>&copy; 2018 MysMatch.</p>
         <ul class="list-inline">
           <li class="list-inline-item">
             <a href="#">Privacy</a>

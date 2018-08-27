@@ -7,10 +7,18 @@
 <div class="row">
 <div class="matching_user_icon col-lg-6">
   <%= image_tag current_user.icon %>
+  <div class="user_info">
+    <p>名前：<%= current_user.name %></p>
+    <p>自己紹介：<%= current_user.biography %></p>
+  </div>
 </div>
 
 <div class="matching_user_icon col-lg-6">
   <%= image_tag @matching_user.icon %>
+  <div class="user_info">
+    <p>名前：<%= @matching_user.name %></p>
+    <p>自己紹介：<%= @matching_user.biography %></p>
+  </div>
 </div>
 </div>
 

@@ -38,7 +38,7 @@
   <%= form.radio_button :job, :経営者 %> 経営者
 </div>
 
-<p>1:そう思う 2:どちらかといえばそう思う 3:どちらともいえない 4:どちらかといえばそう思わない 5:そう思わない</p>
+<p class="question_option">1: そう思う　　2: どちらかといえばそう思う　　3: どちらともいえない　　4: どちらかといえばそう思わない　　5: そう思わない</p>
 
 <table>
   <tr class="field">
@@ -51,7 +51,7 @@
       <%= form.radio_button :question1, "5" %> 5
     </td>
   </tr>
-  <tr class="field">
+  <tr class="field question_even">
     <td><%= form.label :question2, "Q2：感情的に取り乱すことはない" %></td>
     <td>
       <%= form.radio_button :question2, "1" %> 1
@@ -71,7 +71,7 @@
       <%= form.radio_button :question3, "5" %> 5
     </td>
   </tr>
-  <tr class="field">
+  <tr class="field question_even">
     <td><%= form.label :question4, "Q4：新しい仕事や環境でもすぐに慣れることができる" %></td>
     <td>
       <%= form.radio_button :question4, "1" %> 1
@@ -91,7 +91,7 @@
       <%= form.radio_button :question5, "5" %> 5
     </td>
   </tr>
-  <tr class="field">
+  <tr class="field question_even">
     <td><%= form.label :question6, "Q6：人と話しをするのが好きだ" %></td>
     <td>
       <%= form.radio_button :question6, "1" %> 1
@@ -111,7 +111,7 @@
       <%= form.radio_button :question7, "5" %> 5
     </td>
   </tr>
-  <tr class="field">
+  <tr class="field question_even">
     <td><%= form.label :question8, "Q8：チームワークを大切にしている" %></td>
     <td>
       <%= form.radio_button :question8, "1" %> 1
@@ -131,7 +131,7 @@
       <%= form.radio_button :question9, "5" %> 5
     </td>
   </tr>
-  <tr class="field">
+  <tr class="field question_even">
     <td><%= form.label :question10, "Q10：新しい経験を大切にしている" %></td>
     <td>
       <%= form.radio_button :question10, "1" %> 1
@@ -151,7 +151,7 @@
       <%= form.radio_button :question11, "5" %> 5
     </td>
   </tr>
-  <tr class="field">
+  <tr class="field question_even">
     <td><%= form.label :question12, "Q12：物事は正確に行う" %></td>
     <td>
       <%= form.radio_button :question12, "1" %> 1
@@ -171,7 +171,7 @@
       <%= form.radio_button :question13, "5" %> 5
     </td>
   </tr>
-  <tr class="field">
+  <tr class="field question_even">
     <td><%= form.label :question14, "Q14：人のちょっとした言葉や出来事で、深く傷ついてしまう" %></td>
     <td>
       <%= form.radio_button :question14, "1" %> 1
@@ -191,7 +191,7 @@
       <%= form.radio_button :question15, "5" %> 5
     </td>
   </tr>
-  <tr class="field">
+  <tr class="field question_even">
     <td><%= form.label :question16, "Q16：交友関係は広い" %></td>
     <td>
       <%= form.radio_button :question16, "1" %> 1
@@ -211,7 +211,7 @@
       <%= form.radio_button :question17, "5" %> 5
     </td>
   </tr>
-  <tr class="field">
+  <tr class="field question_even">
     <td><%= form.label :question18, "Q18：相手の立場に立って、その人のために何かをすることができる" %></td>
     <td>
       <%= form.radio_button :question18, "1" %> 1
@@ -231,7 +231,7 @@
       <%= form.radio_button :question19, "5" %> 5
     </td>
   </tr>
-  <tr class="field">
+  <tr class="field question_even">
     <td><%= form.label :question20, "Q20：好奇心旺盛で、知らないことにも関心を持っている" %></td>
     <td>
       <%= form.radio_button :question20, "1" %> 1
@@ -242,7 +242,7 @@
     </td>
   </tr>
 </table>
-<div class="actions">
+<div class="actions btn">
   <%= form.submit "送信" %>
 </div>
 

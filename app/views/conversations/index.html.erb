@@ -6,12 +6,15 @@
     <% @conversations.order('created_at DESC').each do |conversation| %>
         <% if conversation.target_user(current_user).present? %>
           <p>
-            <%= link_to conversation_messages_path(conversation), target: "_blank" do %>
-              <span class="message_sender_icon"><%= image_tag conversation.target_user(current_user).icon %></span>
-              <%= conversation.target_user(current_user).name %>さん
-            <% end %> ->
-            <%= link_to conversation.messages.last.body, conversation_messages_path(conversation) %>
-            <%= conversation.messages.last.message_time %>
+            <span class="message_sender_icon"><%= image_tag conversation.target_user(current_user).icon %></span>
+            <%= conversation.target_user(current_user).name %>さん
+            ->
+            <% if conversation.messages.last %>
+              <%= link_to conversation.messages.last.body, conversation_messages_path(conversation) %>
+              <%= conversation.messages.last.message_time %>
+            <% else %>
+              <%= link_to "#{conversation.target_user(current_user).name}さんにメッセージを送る", conversations_path(sender_id: current_user.id, recipient_id: conversation.target_user(current_user).id), method: :post, class: "btn btn-danger btn-danger-ex" %>
+            <% end %>
           </p>
         <% end %>
     <% end %>

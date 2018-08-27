@@ -54,7 +54,7 @@ body{
 
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
+  font-size: 1rem;
   line-height: 18px;
 }
 
@@ -73,7 +73,7 @@ th {
 }
 
 td {
-  padding: 0 5px 7px;
+  padding: 5px;
 }
 
 div {
@@ -117,6 +117,7 @@ div {
 
 label {
   display: block;
+  padding-top: 8px;
 }
 
 .bootstrap-select.btn-group .dropdown-toggle .caret {

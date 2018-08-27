@@ -1,5 +1,7 @@
 <h1>ユーザー情報</h1>
 
+<div class="row">
+<div class="user_info col-lg-4">
 <div class="user_icon">
   <%= image_tag @user.icon %>
 </div>
@@ -10,14 +12,16 @@
 <p><%= link_to "基本情報を変更する",  edit_user_path(@user) %></p>
 
 <% if @questionnaire.blank? %>
-  <%= link_to "質問に答える", new_user_questionnaire_path(@user.id) %>
+  <%= link_to "質問に回答する", new_user_questionnaire_path(@user.id) %>
 <% else %>
   <%= form_with(model: current_user.active_relationships.new, local: true) do |f| %>
-    <%= f.submit "マッチング" %>
+    <%= f.submit "マッチング", class: "btn btn-danger" %>
   <% end %>
   <%= link_to "回答を修正する", edit_user_questionnaire_path(@user.id, @user.questionnaire.id) %>
 <% end %>
+</div>
 
+<div class="new_user_questionnaire col-lg-8">
 <% unless @questionnaire.blank? %>
   <h3><%= @user.name %>さんの回答 </h3>
   <p>性別：<%= @user.questionnaire.sex %></p>
@@ -25,26 +29,96 @@
   <p>出身地：<%= @user.questionnaire.birthplace %></p>
   <p>学歴：<%= @user.questionnaire.education %></p>
   <p>職業：<%= @user.questionnaire.job %></p>
-  <p>
-    質問1：<%= @user.questionnaire.question1 %>　
-    質問2：<%= @user.questionnaire.question2 %>　
-    質問3：<%= @user.questionnaire.question3 %>　
-    質問4：<%= @user.questionnaire.question4 %>　
-    質問5：<%= @user.questionnaire.question5 %>　
-    質問6：<%= @user.questionnaire.question6 %>　
-    質問7：<%= @user.questionnaire.question7 %>　
-    質問8：<%= @user.questionnaire.question8 %>　
-    質問9：<%= @user.questionnaire.question9 %>　
-    質問10：<%= @user.questionnaire.question10 %>　
-    質問11：<%= @user.questionnaire.question11 %>　
-    質問12：<%= @user.questionnaire.question12 %>　
-    質問13：<%= @user.questionnaire.question13 %>　
-    質問14：<%= @user.questionnaire.question14 %>　
-    質問15：<%= @user.questionnaire.question15 %>　
-    質問16：<%= @user.questionnaire.question16 %>　
-    質問17：<%= @user.questionnaire.question17 %>　
-    質問18：<%= @user.questionnaire.question18 %>　
-    質問19：<%= @user.questionnaire.question19 %>　
-    質問20：<%= @user.questionnaire.question20 %>
-  </p>
+
+  <p class="question_option">1: そう思う　　2: どちらかといえばそう思う　　3: どちらともいえない　　4: どちらかといえばそう思わない　　5: そう思わない</p>
+
+  <table>
+    <tr>
+      <th>質問</th>
+      <th>回答</th>
+    </tr>
+    <tr>
+      <td>Q1：すぐ友だちを作ることできる</td>
+      <td><%= @user.questionnaire.question1 %></td>
+    </tr>
+    <tr class="question_even">
+      <td>Q2：感情的に取り乱すことはない</td>
+      <td><%= @user.questionnaire.question2 %></td>
+    </tr>
+    <tr>
+      <td>Q3：友だちと一緒に行動することが多い</td>
+      <td><%= @user.questionnaire.question3 %></td>
+    </tr>
+    <tr class="question_even">
+      <td>Q4：新しい仕事や環境でもすぐに慣れることができる</td>
+      <td><%= @user.questionnaire.question4 %></td>
+    </tr>
+    <tr>
+      <td>Q5：物事の真意を調べることに興味がある</td>
+      <td><%= @user.questionnaire.question5 %></td>
+    </tr>
+    <tr class="question_even">
+      <td>Q6：人と話しをするのが好きだ</td>
+      <td><%= @user.questionnaire.question6 %></td>
+    </tr>
+    <tr>
+      <td>Q7：決心をしたらやり通す</td>
+      <td><%= @user.questionnaire.question7 %></td>
+    </tr>
+    <tr class="question_even">
+      <td>Q8：チームワークを大切にしている</td>
+      <td><%= @user.questionnaire.question8 %></td>
+    </tr>
+    <tr>
+      <td>Q9：何かを始める前に、あれこれ心配してしまう</td>
+      <td><%= @user.questionnaire.question9 %></td>
+    </tr>
+    <tr class="question_even">
+      <td>Q10：新しい経験を大切にしている</td>
+      <td><%= @user.questionnaire.question10 %></td>
+    </tr>
+    <tr>
+      <td>Q11：明るい性格だ</td>
+      <td><%= @user.questionnaire.question11 %></td>
+    </tr>
+    <tr class="question_even">
+      <td>Q12：物事は正確に行う</td>
+      <td><%= @user.questionnaire.question12 %></td>
+    </tr>
+    <tr>
+      <td>Q13：人と協力して，物事を成し遂げるのが好きだ</td>
+      <td><%= @user.questionnaire.question13 %></td>
+    </tr>
+    <tr class="question_even">
+      <td>Q14：人のちょっとした言葉や出来事で、深く傷ついてしまう</td>
+      <td><%= @user.questionnaire.question14 %></td>
+    </tr>
+    <tr>
+      <td>Q15：他人の優れた特徴を言い当てることが得意だ</td>
+      <td><%= @user.questionnaire.question15 %></td>
+    </tr>
+    <tr class="question_even">
+      <td>Q16：交友関係は広い</td>
+      <td><%= @user.questionnaire.question16 %></td>
+    </tr>
+    <tr>
+      <td>Q17：確実に、こつこつと努力する方だ</td>
+      <td><%= @user.questionnaire.question17 %></td>
+    </tr>
+    <tr class="question_even">
+      <td>Q18：相手の立場に立って、その人のために何かをすることができる</td>
+      <td><%= @user.questionnaire.question18 %></td>
+    </tr>
+    <tr>
+      <td>Q19：人前では緊張してしまう</td>
+      <td><%= @user.questionnaire.question19 %></td>
+    </tr>
+    <tr class="question_even">
+      <td>Q20：好奇心旺盛で、知らないことにも関心を持っている</td>
+      <td><%= @user.questionnaire.question20 %></td>
+    </tr>
+  </table>
 <% end %>
+</div>
+
+</div>

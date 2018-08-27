@@ -5,6 +5,15 @@
   object-fit: cover;
 }
 
+@media screen and (max-width: 767px) {
+  .matching_user_icon img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
 .matching_page{
   text-align: center;
 }

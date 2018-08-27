@@ -5,7 +5,7 @@
 <h3><span class="count" data-num="<%= @relationship.total_score %>">0</span>%</h3>
 
 <div class="row">
-<div class="matching_user_icon col-lg-6">
+<div class="matching_user_icon col-md-6">
   <%= image_tag current_user.icon %>
   <div class="user_info">
     <p>名前：<%= current_user.name %></p>
@@ -13,7 +13,7 @@
   </div>
 </div>
 
-<div class="matching_user_icon col-lg-6">
+<div class="matching_user_icon col-md-6">
   <%= image_tag @matching_user.icon %>
   <div class="user_info">
     <p>名前：<%= @matching_user.name %></p>

@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :ensure_correct_user
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def show
@@ -28,5 +30,12 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:biography, :icon, :icon_cache)
+  end
+
+  def ensure_correct_user
+    if current_user.id != params[:id].to_i
+      flash[:notice] = "権限がありません"
+      redirect_to user_path(current_user)
+    end
   end
 end

@@ -1,5 +1,7 @@
 class RelationshipsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_relationship, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_correct_user, only: [:show]
   after_action :create_notifications, only: [:create]
 
   def show
@@ -33,42 +35,28 @@ class RelationshipsController < ApplicationController
     end
   end
 
-  def update
-    respond_to do |format|
-      if @relationship.update(relationship_params)
-        format.html { redirect_to @relationship, notice: 'Relationship was successfully updated.' }
-        format.json { render :show, status: :ok, location: @relationship }
-      else
-        format.html { render :edit }
-        format.json { render json: @relationship.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def destroy
-    @relationship.destroy
-    respond_to do |format|
-      format.html { redirect_to relationships_url, notice: 'Relationship was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_relationship
       @relationship = Relationship.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def relationship_params
       params.fetch(:relationship, {})
     end
 
     def create_notifications
-       Notification.create(user_id: @relationship.followed_id,
+      Notification.create(user_id: @relationship.followed_id,
         notified_by_id: @relationship.follower_id,
         relationship_id: @relationship.id)
-     end
+    end
+
+    def ensure_correct_user
+      if current_user.id != @relationship.follower_id && current_user.id != @relationship.followed_id
+        flash[:notice] = "権限がありません"
+        redirect_to user_path(current_user)
+      end
+    end
 
     def background_calculation
       @questionnaires = Questionnaire.all.order(:id)

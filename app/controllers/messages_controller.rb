@@ -1,5 +1,7 @@
 class MessagesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_conversation, only: [:index, :create]
+  before_action :ensure_correct_user, only: [:index]
 
   def index
     @messages = @conversation.messages
@@ -32,7 +34,6 @@ class MessagesController < ApplicationController
     @message = Message.find(params[:id])
     @message.update read: true
     @conversation = @message.conversation
-    binding.pry
     redirect_to conversation_messages_path(@conversation)
   end
 
@@ -53,5 +54,12 @@ class MessagesController < ApplicationController
 
   def message_params
     params.require(:message).permit(:body, :user_id, :message_recipient_id)
+  end
+
+  def ensure_correct_user
+    if current_user.id != @conversation.sender_id && current_user.id != @conversation.recipient_id
+      flash[:notice] = "権限がありません"
+      redirect_to user_path(current_user)
+    end
   end
 end

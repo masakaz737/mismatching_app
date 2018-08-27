@@ -41,6 +41,7 @@
     .navbar-nav {
         > li {
             > .dropdown {
+                font-size: 11px;
                 @include alt-font;
                 &.active {
                     color: $theme-primary !important;

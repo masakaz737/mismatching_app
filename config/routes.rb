@@ -3,15 +3,15 @@ Rails.application.routes.draw do
   root 'static_pages#index'
 
   devise_for :users
-  resources :users do
-    resources :questionnaires
+  resources :users, only:[:show, :edit, :update] do
+    resources :questionnaires, only:[:new, :create, :edit, :update]
   end
 
-  resources :conversations do
-    resources :messages
+  resources :conversations, only:[:index, :create] do
+    resources :messages, only:[:index, :create]
   end
 
-  resources :relationships
+  resources :relationships, only:[:show, :new, :create]
 
   get 'notifications/:id/link_through', to: 'notifications#link_through', as: :link_through
   get 'notifications', to: 'notifications#index'

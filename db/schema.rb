@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180825132623) do
+ActiveRecord::Schema.define(version: 20180827023749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,11 +77,6 @@ ActiveRecord::Schema.define(version: 20180825132623) do
     t.integer "question18"
     t.integer "question19"
     t.integer "question20"
-    t.integer "question21"
-    t.integer "question22"
-    t.integer "question23"
-    t.integer "question24"
-    t.integer "question25"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_questionnaires_on_user_id"

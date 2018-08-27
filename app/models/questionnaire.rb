@@ -27,11 +27,6 @@ class Questionnaire < ApplicationRecord
   validates :question18, presence: true
   validates :question19, presence: true
   validates :question20, presence: true
-  validates :question21, presence: true
-  validates :question22, presence: true
-  validates :question23, presence: true
-  validates :question24, presence: true
-  validates :question25, presence: true
 
   def age
     date_format = "%Y%m%d"

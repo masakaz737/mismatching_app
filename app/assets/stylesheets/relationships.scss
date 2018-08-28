@@ -6,6 +6,13 @@
 }
 
 @media screen and (max-width: 767px) {
+  .matching_user_icon img{
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media screen and (max-width: 767px) {
   .me{
     display: none;
   }
@@ -13,6 +20,12 @@
 
 .matching_page{
   text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+  .matching_page h2{
+    font-size: 1.5rem;
+  }
 }
 
 .user_info{

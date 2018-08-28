@@ -9,6 +9,11 @@
   margin-bottom: 30px;
 }
 
+.btn-danger-index{
+  border-radius: 1rem;
+  margin-bottom: 0;
+}
+
 .btn-outline{
   color: white;
   border-radius: 2rem;

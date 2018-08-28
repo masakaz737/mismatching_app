@@ -15,7 +15,7 @@
   <%= link_to "質問に回答する", new_user_questionnaire_path(@user.id) %>
 <% else %>
   <%= form_with(model: current_user.active_relationships.new, local: true) do |f| %>
-    <%= f.submit "マッチング", class: "btn btn-danger" %>
+    <%= f.submit "マッチング", class: "btn btn-danger btn-danger-index" %>
   <% end %>
   <%= link_to "回答を修正する", edit_user_questionnaire_path(@user.id, @user.questionnaire.id) %>
 <% end %>

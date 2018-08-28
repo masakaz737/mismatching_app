@@ -1,5 +1,17 @@
 <%= form_with(model: [@user, @questionnaire], local: true) do |form| %>
 
+<% if @questionnaire.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= @questionnaire.errors.count %>件のエラーがあります。</h2>
+    <ul>
+
+    <% @questionnaire.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <div class="field">
   <%= form.label :sex, "性別" %>
   <%= form.radio_button :sex, :男 %> 男

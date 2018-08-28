@@ -5,7 +5,11 @@ class QuestionnairesController < ApplicationController
 
   def new
     @user = User.find(params[:user_id])
-    @questionnaire = Questionnaire.new
+    if @questionnaire
+      @questionnaire = Questionnaire.new(@questionnaire)
+    else
+      @questionnaire = Questionnaire.new
+    end
   end
 
   def edit
@@ -18,8 +22,8 @@ class QuestionnairesController < ApplicationController
       if @questionnaire.save
         redirect_to user_path(@questionnaire.user_id), notice: 'questionnaire was successfully created.'
       else
-        # できたらrenderにしたい
-        redirect_to new_user_questionnaire_path
+        @user = User.find(@questionnaire.user_id)
+        render 'new'
       end
   end
 

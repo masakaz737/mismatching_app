@@ -109,6 +109,12 @@ div {
     color: #fff;
   }
 
+  @media screen and (max-width: 767px) {
+    h2{
+      font-size: 1.5rem;
+    }
+  }
+
   ul li {
     font-size: 12px;
     list-style: square;

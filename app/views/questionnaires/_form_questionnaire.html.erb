@@ -2,7 +2,7 @@
 
 <% if @questionnaire.errors.any? %>
   <div id="error_explanation">
-    <h2><%= @questionnaire.errors.count %>件のエラーがあります。</h2>
+    <h3><%= @questionnaire.errors.count %>件のエラーがあります。</h3>
     <ul>
 
     <% @questionnaire.errors.full_messages.each do |msg| %>
@@ -13,12 +13,12 @@
 <% end %>
 
 <div class="field">
-  <%= form.label :sex, "性別" %>
+  <%= form.label :sex, "性別：" %>
   <%= form.radio_button :sex, :男 %> 男
   <%= form.radio_button :sex, :女 %> 女
 </div>
 <div class="field">
-  <%= form.label :birthday, "生年月日" %>
+  <%= form.label :birthday, "生年月日：" %>
   <%= raw sprintf(
               form.date_select(
                   :birthday,
@@ -30,11 +30,11 @@
                   '年 ', '月 ') + '日' %>
 </div>
 <div class="field">
-  <%= form.label :出身地 %>
+  <%= form.label :birthplace, "出身地：" %>
   <%= form.select :birthplace, Questionnaire.birthplaces.keys, {prompt: '選択してください'} %>
 </div>
 <div class="field">
-  <%= form.label :education, "学歴" %>
+  <%= form.label :education, "学歴：" %>
   <%= form.radio_button :education, :高卒 %> 高卒
   <%= form.radio_button :education, :短大、専門卒 %> 短大、専門卒
   <%= form.radio_button :education, :大卒 %> 大卒
@@ -42,7 +42,7 @@
   <%= form.radio_button :education, :その他 %> その他
 </div>
 <div class="field">
-  <%= form.label :job, "職業" %>
+  <%= form.label :job, "職業：" %>
   <%= form.radio_button :job, :無職 %> 無職
   <%= form.radio_button :job, :学生 %> 学生
   <%= form.radio_button :job, :会社員 %> 会社員

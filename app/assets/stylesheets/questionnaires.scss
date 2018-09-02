@@ -12,3 +12,9 @@
 .field_with_errors{
   display: inline;
 }
+
+@media screen and (max-width: 767px) {
+  td input{
+    margin: 5px 0;
+  }
+}

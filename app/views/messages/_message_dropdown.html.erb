@@ -1,6 +1,5 @@
 <div class="dropdown message-dropdown">
-   <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" id='dropdownMenu1' aria-haspopup="true"
- aria-expanded="true">
+   <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" id='dropdownMenu1' aria-haspopup="true" aria-expanded="true">
      <%= Message.where(message_recipient_id: current_user.id).where(read: false).count %>
      <span class="glyphicon glyphicon-flag"><i class="fas fa-envelope" aria-hidden="true"></i>メッセージ</span>
    </button>

@@ -1,6 +1,6 @@
 class RelationshipsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_relationship, only: [:show, :edit, :update, :destroy]
+  before_action :set_relationship, only: %i[show edit update destroy]
   before_action :ensure_correct_user, only: [:show]
   after_action :create_notifications, only: [:create]
 
@@ -17,21 +17,20 @@ class RelationshipsController < ApplicationController
   end
 
   def create
-    if user_signed_in?
-      find_matching_user
-      @relationship = current_user.follow!(@matching_user)
-      if @relationship.save
-        @relationship.update(total_score: @total_score, positive: @positive_score,
-                            faithful: @faithful_score, cooperative: @cooperative_score,
-                            mental: @mental_score, curious: @curious_score,
-                            background: @background_score)
-
-        redirect_to relationship_path(@relationship.id)
-      else
-        redirect_to relationship_path(Relationship.find_by(follower_id: current_user.id, followed_id: @matching_user.id).id), notice: 'relationship was already existed.'
-      end
+    find_matching_user
+    @relationship = current_user.follow!(@matching_user)
+    if @relationship.save
+      @relationship.update(
+        total_score: @total_score, positive: @positive_score,
+        faithful: @faithful_score, cooperative: @cooperative_score,
+        mental: @mental_score, curious: @curious_score,
+        background: @background_score
+      )
+      redirect_to relationship_path(@relationship.id)
     else
-      @user
+      redirect_to relationship_path(
+        Relationship.find_by(follower_id: current_user.id, followed_id: @matching_user.id).id
+      ), notice: 'relationship was already existed.'
     end
   end
 
@@ -94,12 +93,15 @@ class RelationshipsController < ApplicationController
     questionnaire_calculation
     background_calculation
 
-    total_points = [@positive_points, @faithful_points, @cooperative_points, @mental_points, @curious_points, @background_points].transpose.map{|n| n.inject(:+)}
+    total_points = [
+      @positive_points, @faithful_points, @cooperative_points, @mental_points,
+      @curious_points, @background_points
+    ].transpose.map { |n| n.inject(:+) }
     maximum = total_points.index(total_points.max)
 
-    #(回答5 - 回答1) * 要素毎の設問数 * weight
+    # (回答5 - 回答1) * 要素毎の設問数 * weight
     max_gap = (5 - 1) * 4 * 10
-    #(女2 - 男1) * 40 + (65歳 - 18歳) + (海外50 - 北海道1) + (学歴5 - 学歴1) * 10 + (職業5 - 職業1) * 10
+    # (女2 - 男1) * 40 + (65歳 - 18歳) + (海外50 - 北海道1) + (学歴5 - 学歴1) * 10 + (職業5 - 職業1) * 10
     max_gap_background = (2 - 1) * 40 + (65 - 18) + (50 - 1) + (5 - 1) * 10 * 2
 
     @matching_user = User.find(@questionnaires[maximum].user_id)
@@ -113,21 +115,20 @@ class RelationshipsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_relationship
-      @relationship = Relationship.find(params[:id])
-    end
 
-    def create_notifications
-      Notification.create(user_id: @relationship.followed_id,
-        notified_by_id: @relationship.follower_id,
-        relationship_id: @relationship.id)
-    end
+  def set_relationship
+    @relationship = Relationship.find(params[:id])
+  end
 
-    def ensure_correct_user
-      if current_user.id != @relationship.follower_id && current_user.id != @relationship.followed_id
-        flash[:notice] = "権限がありません"
-        redirect_to user_path(current_user)
-      end
-    end
+  def create_notifications
+    Notification.create(
+      user_id: @relationship.followed_id,
+      notified_by_id: @relationship.follower_id,
+      relationship_id: @relationship.id
+    )
+  end
+
+  def ensure_correct_user
+    redirect_to user_path(current_user), notice: '権限がありません' if current_user.id != @relationship.follower_id && current_user.id != @relationship.followed_id
+  end
 end

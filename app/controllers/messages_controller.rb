@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_conversation, only: [:index, :create]
+  before_action :set_conversation, only: %i[index create]
   before_action :ensure_correct_user, only: [:index]
 
   def index
@@ -22,9 +22,7 @@ class MessagesController < ApplicationController
     end
 
     if @messages.last
-      if @messages.last.user_id != current_user.id
-        @messages.last.read = true
-      end
+      @messages.last.read = true if @messages.last.user_id != current_user.id
     end
 
     @message = @conversation.messages.build
@@ -57,9 +55,6 @@ class MessagesController < ApplicationController
   end
 
   def ensure_correct_user
-    if current_user.id != @conversation.sender_id && current_user.id != @conversation.recipient_id
-      flash[:notice] = "権限がありません"
-      redirect_to user_path(current_user)
-    end
+    redirect_to user_path(current_user), notice: '権限がありません' if current_user.id != @conversation.sender_id && current_user.id != @conversation.recipient_id  
   end
 end

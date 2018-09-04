@@ -31,14 +31,13 @@
   <div class="field">
     <%= f.text_area :body, class: "form-control" %>
   </div>
-    <%= f.text_field :user_id, value: current_user.id, type: "hidden"  %>
-    <% if @conversation.sender_id == current_user.id %>
-      <%= f.text_field :message_recipient_id, value: @conversation.recipient_id, type: "hidden"  %>
-    <% else %>
-      <%= f.text_field :message_recipient_id, value: @conversation.sender_id, type: "hidden"  %>
-    <% end %>
+  <%= f.text_field :user_id, value: current_user.id, type: "hidden"  %>
+  <% if @conversation.sender_id == current_user.id %>
+    <%= f.text_field :message_recipient_id, value: @conversation.recipient_id, type: "hidden"  %>
+  <% else %>
+    <%= f.text_field :message_recipient_id, value: @conversation.sender_id, type: "hidden"  %>
+  <% end %>
   <div>
     <%= f.submit "メッセージを送る" %>
   </div>
-
 <% end %>

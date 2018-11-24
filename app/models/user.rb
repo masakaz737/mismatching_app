@@ -28,7 +28,7 @@ class User < ApplicationRecord
   PERCENTAGE = 100 #100分率への変換
 
   #指定のユーザをフォローする
-  def follow!(other_user,matching_score)
+  def follow(other_user,matching_score)
     @relationship = active_relationships.new(followed_id: other_user.id)
     if @relationship.save
       @relationship.update(

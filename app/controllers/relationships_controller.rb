@@ -16,9 +16,9 @@ class RelationshipsController < ApplicationController
     @relationship = Relationship.new
   end
 
-  def create    
+  def create
     @matching_user, *@matching_score = User.find_matching_user(current_user) #マッチングユーザの呼び出し、およびマッチングスコアを配列にして代入
-    @relationship = current_user.follow!(@matching_user, @matching_score)
+    @relationship = current_user.follow(@matching_user, @matching_score)
     unless @relationship.nil?
       redirect_to @relationship
     else

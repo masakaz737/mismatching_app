@@ -28,13 +28,22 @@ class User < ApplicationRecord
   PERCENTAGE = 100 #100分率への変換
 
   #指定のユーザをフォローする
-  def follow!(other_user)
-    active_relationships.new(followed_id: other_user.id)
+  def follow!(other_user,matching_score)
+    @relationship = active_relationships.new(followed_id: other_user.id)
+    if @relationship.save
+      @relationship.update(
+        total_score: matching_score[0], positive: matching_score[1],
+        faithful: matching_score[2], cooperative: matching_score[3],
+        mental: matching_score[4], curious: matching_score[5],
+        background: matching_score[6]
+      )
+      @relationship
+    end
   end
 
   #フォローしているかどうかを確認する
   def following?(other_user)
-    active_relationships.find_by(followed_id: other_user.id)
+    following.include?(other_user)
   end
 
   def self.find_matching_user(user)
@@ -61,7 +70,6 @@ class User < ApplicationRecord
     @mental_score = @mental_points[maximum] * PERCENTAGE / MAX_GAP
     @curious_score = @curious_points[maximum] * PERCENTAGE / MAX_GAP
     @background_score = @background_points[maximum] * PERCENTAGE / MAX_GAP_BACKGROUND
-    binding.pry
     return @matching_user, @total_score, @positive_score, @faithful_score,
           @cooperative_score, @mental_score, @curious_score, @background_score
   end

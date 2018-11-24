@@ -16,22 +16,14 @@ class RelationshipsController < ApplicationController
     @relationship = Relationship.new
   end
 
-  def create
-    @matching_user, *@matching_score = User.find_matching_user(current_user)
-    binding.pry
-    @relationship = current_user.follow!(@matching_user)
-    if @relationship.save
-      @relationship.update(
-        total_score: @matching_score[0], positive: @matching_score[1],
-        faithful: @matching_score[2], cooperative: @matching_score[3],
-        mental: @matching_score[4], curious: @matching_score[5],
-        background: @matching_score[6]
-      )
-      redirect_to relationship_path(@relationship.id)
+  def create    
+    @matching_user, *@matching_score = User.find_matching_user(current_user) #マッチングユーザの呼び出し、およびマッチングスコアを配列にして代入
+    @relationship = current_user.follow!(@matching_user, @matching_score)
+    unless @relationship.nil?
+      redirect_to @relationship
     else
-      redirect_to relationship_path(
-        Relationship.find_by(follower_id: current_user.id, followed_id: @matching_user.id).id
-      ), notice: 'relationship was already existed.'
+      @relationship = current_user.active_relationships.find_by(followed_id: @matching_user.id)
+      redirect_to @relationship, notice: 'relationship was already existed.'
     end
   end
 

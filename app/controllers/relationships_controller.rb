@@ -19,6 +19,7 @@ class RelationshipsController < ApplicationController
   def create
     @matching_user, *@matching_score = User.find_matching_user(current_user) #マッチングユーザの呼び出し、およびマッチングスコアを配列にして代入
     @relationship = current_user.follow(@matching_user, @matching_score)
+    binding.pry
     unless @relationship.nil?
       redirect_to @relationship
     else

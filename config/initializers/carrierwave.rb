@@ -12,9 +12,9 @@ if Rails.env.production?
     config.fog_attributes = {'Cache-Control' => 'public, max-age=86400'}
     config.fog_directory = 'mismatching-app-production'
     config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/mismatching-app-production'
-  else
-    CarrierWave.configure do |config|
-      config.storage = :file
-    end
+  end
+else
+  CarrierWave.configure do |config|
+    config.storage = :file
   end
 end

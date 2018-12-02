@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before do
-    @user1 = FactoryBot.create(:user)
-    @user2 = FactoryBot.create(:user)
+    @user1 = create(:user)
+    @user2 = create(:user)
   end
 
   describe 'followメソッド' do
@@ -15,7 +15,15 @@ RSpec.describe User, type: :model do
     context 'when other_user is not my following' do
       it "follow other_user and return instance of Relationship" do
         follow = @user1.follow(@user2, @matching_score)
-        expect(follow).to be_an_instance_of(Relationship)
+        expect(follow.follower_id).to eq(@user1.id)
+        expect(follow.followed_id).to eq(@user2.id)
+        expect(follow.total_score).to eq(@matching_score[0])
+        expect(follow.positive).to eq(@matching_score[1])
+        expect(follow.faithful).to eq(@matching_score[2])
+        expect(follow.cooperative).to eq(@matching_score[3])
+        expect(follow.mental).to eq(@matching_score[4])
+        expect(follow.curious).to eq(@matching_score[5])
+        expect(follow.background).to eq(@matching_score[6])
       end
     end
     # ユーザーを既にフォローしている場合
@@ -35,8 +43,7 @@ RSpec.describe User, type: :model do
     # ユーザーをまだフォローしていない場合
     context 'when other_user is not my following' do
       it "return false" do
-        judge = @user1.following?(@user2)
-        expect(judge).to be false
+        expect(@user1.following?(@user2)).to be_falsey
       end
     end
 
@@ -47,8 +54,7 @@ RSpec.describe User, type: :model do
       end
 
       it "return true" do
-        judge = @user1.following?(@user2)
-        expect(judge).to be true
+        expect(@user1.following?(@user2)).to be_truthy
       end
     end
   end

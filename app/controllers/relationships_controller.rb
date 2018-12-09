@@ -17,14 +17,14 @@ class RelationshipsController < ApplicationController
   end
 
   def create
-    @matching_user, *@matching_score = User.find_matching_user(current_user) #マッチングユーザの呼び出し、およびマッチングスコアを配列にして代入
-    @relationship = current_user.follow(@matching_user, @matching_score)
-    unless @relationship.nil?
-      redirect_to @relationship
+    @matching_user, *@matching_score = User.find_matching_user(current_user) # マッチングユーザの呼び出し、およびマッチングスコアを配列にして代入
+    if current_user.following?(@matching_user) # フォロー済みユーザがいる場合
+      @relationship = current_user.following.find_by(followed_id: @matching_user.id)
     else
-      @relationship = current_user.active_relationships.find_by(followed_id: @matching_user.id)
-      redirect_to @relationship, notice: 'relationship was already existed.'
+      @relationship = current_user.follow!(@matching_user, @matching_score)
     end
+    # この時点で @relationship には `フォロー済みだった場合そのレコード` or  `未フォローだった場合、新規で作成されたレコード` のどちらかが入っている
+    redirect_to @relationship
   end
 
   private

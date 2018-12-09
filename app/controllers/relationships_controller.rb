@@ -19,7 +19,8 @@ class RelationshipsController < ApplicationController
   def create
     @matching_user, *@matching_score = User.find_matching_user(current_user) # マッチングユーザの呼び出し、およびマッチングスコアを配列にして代入
     if current_user.following?(@matching_user) # フォロー済みユーザがいる場合
-      @relationship = current_user.following.find_by(followed_id: @matching_user.id)
+      @relationship = current_user.active_relationships.find_by(followed_id: @matching_user.id)
+      flash[:notice] = 'relationship was already existed.'
     else
       @relationship = current_user.follow!(@matching_user, @matching_score)
     end

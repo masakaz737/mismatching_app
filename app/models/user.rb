@@ -55,7 +55,7 @@ class User < ApplicationRecord
       @curious_points, @background_points
     ].transpose.map { |n| n.inject(:+) }
 
-    #t otal_scoreが一番高いユーザーのインデックス番号を取得
+    # total_scoreが一番高いユーザーのインデックス番号を取得
     maximum = total_points.index(total_points.max)
 
     @matching_user = User.find(@questionnaires[maximum].user_id)

@@ -48,7 +48,6 @@ class Questionnaire < ApplicationRecord
       job_points.push(((user.questionnaire.job_before_type_cast - q.job_before_type_cast) * NORMAL_WEIGHT).abs)
     end
     @background_points = [sex_points, birthday_points, birthplace_points, education_points, job_points].transpose.map{|n| n.inject(:+)}
-    @background_points
   end
 
   def self.questionnaire_calculation(user)
